@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">BuzzShelter</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_welcome">Home</string>
+    <string name="title_activity_main">Home</string>
+    <string name="title_activity_welcome">BuzzShelter</string>
     <string name="buzzshelter">BuzzShelter</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="title_activity_login">Login</string>
     <string name="username">Username:</string>
     <string name="password">Password:</string>
+    <string name="logout">Logout</string>
 </resources>

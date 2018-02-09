@@ -10,6 +10,8 @@ import edu.gatech.buzzshelter.R;
 
 public class WelcomeActivity extends AppCompatActivity
 {
+    private boolean disableBack = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -31,4 +33,21 @@ public class WelcomeActivity extends AppCompatActivity
         });
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        
+        /* Check if back button should be disabled */
+        disableBack = getIntent().getBooleanExtra("DISABLE_BACK",
+                false);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        /* Disable back, if logout was pressed  */
+        if(!disableBack)
+            super.onBackPressed();
+    }
 }
