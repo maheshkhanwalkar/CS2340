@@ -49,11 +49,13 @@ public class LoginActivity extends AppCompatActivity
                         InputMethodManager.HIDE_NOT_ALWAYS);
             }
 
-            /* Hardcoded success */
+            /* Success (currently hard-coded) */
             if(userText.getText().toString().equals("user")
                     && passText.getText().toString().equals("pass"))
             {
-                /* TODO */
+                /* Move to main application page */
+                Intent appMain = new Intent(this, MainActivity.class);
+                startActivity(appMain);
             }
             else
             {
