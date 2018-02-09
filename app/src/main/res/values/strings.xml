@@ -2,4 +2,8 @@
     <string name="app_name">BuzzShelter</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_welcome">Home</string>
+    <string name="buzzshelter">BuzzShelter</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="title_activity_login">Login</string>
 </resources>
