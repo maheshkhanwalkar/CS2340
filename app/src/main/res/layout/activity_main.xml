@@ -9,28 +9,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/button"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="Login"
-            android:textSize="30sp" />
+            android:layout_height="wrap_content"
+            android:text="Button" />
 
         <Button
-            android:id="@+id/registerButton"
+            android:id="@+id/button2"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Register"
-            android:textSize="30sp" />
+            android:layout_height="wrap_content"
+            android:text="Button" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
