@@ -50,6 +50,8 @@ public class LoginActivity extends AppCompatActivity
             }
 
             /* Success (currently hard-coded) */
+            /* TODO pass this to a Model class to handle validation */
+
             if(userText.getText().toString().equals("user")
                     && passText.getText().toString().equals("pass"))
             {
