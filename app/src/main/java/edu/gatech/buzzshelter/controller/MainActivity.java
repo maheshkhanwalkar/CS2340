@@ -10,7 +10,6 @@ import edu.gatech.buzzshelter.R;
 
 public class MainActivity extends AppCompatActivity
 {
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -30,4 +29,10 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        /* Do nothing */
+        /* Only logout can go 'back' */
+    }
 }
