@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import edu.gatech.buzzshelter.R;
+import edu.gatech.buzzshelter.model.control.Manager;
 
 public class LoginActivity extends AppCompatActivity
 {
@@ -49,11 +50,10 @@ public class LoginActivity extends AppCompatActivity
                         InputMethodManager.HIDE_NOT_ALWAYS);
             }
 
-            /* Success (currently hard-coded) */
-            /* TODO pass this to a Model class to handle validation */
+            Manager control = Manager.getInstance();
 
-            if(userText.getText().toString().equals("user")
-                    && passText.getText().toString().equals("pass"))
+            /* Try to login */
+            if(control.login(userText.getText().toString(), passText.getText().toString()))
             {
                 /* Move to main application page */
                 Intent appMain = new Intent(this, MainActivity.class);
