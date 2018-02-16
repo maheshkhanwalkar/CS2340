@@ -7,6 +7,8 @@ import edu.gatech.buzzshelter.model.user.Person;
 
 public interface Database
 {
-    void put(Person person);
+    boolean put(Person person, boolean overwrite);
     Person get(Credential cred);
+
+    boolean contains(Credential cred);
 }
