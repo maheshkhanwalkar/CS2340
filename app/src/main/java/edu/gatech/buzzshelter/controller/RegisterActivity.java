@@ -4,13 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import edu.gatech.buzzshelter.R;
+import edu.gatech.buzzshelter.model.control.Manager;
 
 public class RegisterActivity extends AppCompatActivity
 {
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -19,17 +22,16 @@ public class RegisterActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button register = findViewById(R.id.registerButton);
-        Button cancel = findViewById(R.id.cancelButton);
+        /* TODO hook up to UI */
+        Button register = null;
+        Button cancel = null;
 
-        /* Implement register */
-        /* TODO actually register */
+        /* TODO plan out register */
         register.setOnClickListener(v -> {
-            Intent back = new Intent(this, MainActivity.class);
-            startActivity(back);
+
         });
 
-        /* Implement cancel */
+
         cancel.setOnClickListener(v -> {
             Intent back = new Intent(this, WelcomeActivity.class);
             startActivity(back);
