@@ -46,6 +46,6 @@ public class Manager
     public boolean login(String username, String password)
     {
         Credential cred = new Credential(username, password);
-        return !provider.contains(cred);
+        return provider.contains(cred);
     }
 }

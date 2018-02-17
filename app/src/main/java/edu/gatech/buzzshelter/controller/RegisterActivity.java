@@ -2,6 +2,7 @@ package edu.gatech.buzzshelter.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -26,30 +27,17 @@ public class RegisterActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /* TODO hook up to UI */
-        Button register = null;
-        Button cancel = null;
-
-        Spinner types = null;
-
-        /* All the text fields */
-        EditText nameText = null;
-        EditText userText = null;
-        EditText passText = null;
-        EditText retypeText = null;
-        EditText emailText = null;
-
-        /*Button register = findViewById(R.id.registerButton);
+        Button register = findViewById(R.id.registerButton);
         Button cancel = findViewById(R.id.cancelButton);
 
         Spinner types = findViewById(R.id.accSpinner);
 
         /* All the text fields */
-        /*EditText nameText = findViewById(R.id.nameText);
+        EditText nameText = findViewById(R.id.nameText);
         EditText userText = findViewById(R.id.userText);
         EditText passText = findViewById(R.id.passText);
         EditText retypeText = findViewById(R.id.retypeText);
-        EditText emailText = userText;*/
+        EditText emailText = findViewById(R.id.emailText);
 
         /* Setup Retype Password */
         retypeText.addTextChangedListener(new TextWatcher()
@@ -96,10 +84,59 @@ public class RegisterActivity extends AppCompatActivity
                 this, android.R.layout.simple_spinner_item, people);
 
         types.setAdapter(cs);
-
-        /* TODO plan out register */
+        
         register.setOnClickListener(v -> {
 
+            /* Extract the information */
+            /* TODO make sure they aren't blank */
+
+            String name = nameText.getText().toString();
+            String username = userText.getText().toString();
+
+            String password = userText.getText().toString();
+            String retype = retypeText.getText().toString();
+
+            String email = emailText.getText().toString();
+
+            /* Only do something if password is not empty and
+               password == retype */
+
+            if(!password.equals(retype) || password.length() == 0)
+                return;
+
+            /* Pass to model */
+            Manager manager = Manager.getInstance();
+            boolean result = manager.register((PersonType)types.getSelectedItem(),
+                    name, username, password, email);
+
+            /* Perform transition or error reporting */
+            if(!result)
+            {
+                /* Not very descriptive - TODO have error reporting codes from
+                   manager.register(...) instead of boolean */
+
+                Snackbar.make(findViewById(android.R.id.content),
+                        "Registration failed", Snackbar.LENGTH_SHORT)
+                        .show();
+
+                return;
+            }
+
+            /* Perform auto-login */
+            result = manager.login(username, password);
+
+            if(!result)
+            {
+                Snackbar.make(findViewById(android.R.id.content),
+                        "Auto-login failed", Snackbar.LENGTH_SHORT)
+                        .show();
+
+                return;
+            }
+
+            /* Success! */
+            Intent main = new Intent(this, MainActivity.class);
+            startActivity(main);
         });
 
 
