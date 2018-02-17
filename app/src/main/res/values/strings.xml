@@ -13,4 +13,5 @@
     <string name="name">Name:</string>
     <string name="retype_pass">Retype Pass:</string>
     <string name="account">Account:</string>
+    <string name="email">Email:</string>
 </resources>
