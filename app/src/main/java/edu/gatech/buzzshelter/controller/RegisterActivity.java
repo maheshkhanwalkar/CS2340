@@ -84,7 +84,7 @@ public class RegisterActivity extends AppCompatActivity
                 this, android.R.layout.simple_spinner_item, people);
 
         types.setAdapter(cs);
-        
+
         register.setOnClickListener(v -> {
 
             /* Extract the information */
