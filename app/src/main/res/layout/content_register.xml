@@ -13,8 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView11"
-        android:layout_below="@+id/textView11"
-        android:layout_marginTop="79dp"
+        android:layout_below="@+id/emailText"
+        android:layout_marginTop="24dp"
         android:labelFor="@+id/accSpinner"
         android:text="@string/account"
         android:textAppearance="@style/TextAppearance.AppCompat"
@@ -136,5 +136,26 @@
         android:layout_marginBottom="21dp"
         android:layout_toEndOf="@+id/textView2"
         android:text="@string/register" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_below="@+id/retypeText"
+        android:layout_marginTop="33dp"
+        android:text="Email:"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/emailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView4"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignStart="@+id/retypeText"
+        android:ems="10"
+        android:inputType="textPersonName" />
 
 </RelativeLayout>
