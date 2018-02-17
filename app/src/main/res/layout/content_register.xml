@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView11"
         android:layout_below="@+id/emailText"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="30dp"
         android:labelFor="@+id/accSpinner"
         android:text="@string/account"
         android:textAppearance="@style/TextAppearance.AppCompat"
@@ -78,7 +78,8 @@
         android:layout_marginStart="13dp"
         android:layout_toEndOf="@+id/textView11"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        />
 
     <EditText
         android:id="@+id/userText"
@@ -94,9 +95,9 @@
         android:id="@+id/passText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/userText"
+        android:layout_alignStart="@+id/userText"
         android:layout_below="@+id/userText"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:inputType="textPassword" />
 
@@ -156,6 +157,7 @@
         android:layout_alignBottom="@+id/textView4"
         android:layout_alignStart="@+id/retypeText"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textEmailAddress"
+        android:imeOptions="actionDone" />
 
 </RelativeLayout>
