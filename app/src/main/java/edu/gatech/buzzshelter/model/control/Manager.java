@@ -3,6 +3,7 @@ package edu.gatech.buzzshelter.model.control;
 import edu.gatech.buzzshelter.model.auth.Credential;
 import edu.gatech.buzzshelter.model.db.Database;
 import edu.gatech.buzzshelter.model.db.MemDB;
+import edu.gatech.buzzshelter.model.user.Admin;
 import edu.gatech.buzzshelter.model.user.Person;
 import edu.gatech.buzzshelter.model.user.PersonType;
 import edu.gatech.buzzshelter.model.user.User;
@@ -25,7 +26,7 @@ public class Manager
     public boolean register(PersonType type,
                  String name, String username, String password, String email)
     {
-        Person person = null;
+        Person person;
 
         switch (type)
         {
@@ -33,14 +34,14 @@ public class Manager
                 person = new User(name, username, password, email);
                 break;
             case ADMIN:
-                /* TODO have an Admin class */
+                person = new Admin(name, username, password, email);
+                break;
             default:
                 person = null;
         }
 
-        /* Write to database, if person is valid */
-        return person != null && provider.put(person, false);
-
+        /* Write to database */
+        return provider.put(person, false);
     }
 
     public boolean login(String username, String password)

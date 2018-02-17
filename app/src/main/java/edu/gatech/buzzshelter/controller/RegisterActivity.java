@@ -86,9 +86,7 @@ public class RegisterActivity extends AppCompatActivity
         types.setAdapter(cs);
 
         register.setOnClickListener(v -> {
-
             /* Extract the information */
-            /* TODO make sure they aren't blank */
 
             String name = nameText.getText().toString();
             String username = userText.getText().toString();
@@ -98,11 +96,47 @@ public class RegisterActivity extends AppCompatActivity
 
             String email = emailText.getText().toString();
 
-            /* Only do something if password is not empty and
-               password == retype */
+            /* Make sure everything is filled */
 
-            if(!password.equals(retype) || password.length() == 0)
+            if(name.isEmpty() || username.isEmpty() ||
+                    password.isEmpty() || retype.isEmpty() || email.isEmpty())
+            {
+                Snackbar.make(findViewById(android.R.id.content),
+                        "Not all entries have been filled", Snackbar.LENGTH_SHORT)
+                        .show();
+
+                String msg = "Not filled";
+
+                /* Mark which entries are not filled */
+
+                if(name.isEmpty())
+                    nameText.setError(msg);
+
+                if(username.isEmpty())
+                    userText.setError(msg);
+
+                if(password.isEmpty())
+                    passText.setError(msg);
+
+                if(retype.isEmpty())
+                    retypeText.setError(msg);
+
+                if(email.isEmpty())
+                    emailText.setError(msg);
+
                 return;
+            }
+
+            /* Make sure password == retype */
+
+            if(!password.equals(retype))
+            {
+                Snackbar.make(findViewById(android.R.id.content),
+                        "Retype password does not match password", Snackbar.LENGTH_SHORT)
+                        .show();
+
+                return;
+            }
 
             /* Pass to model */
             Manager manager = Manager.getInstance();

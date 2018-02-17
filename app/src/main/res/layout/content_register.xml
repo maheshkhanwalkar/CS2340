@@ -145,7 +145,8 @@
         android:layout_alignStart="@+id/textView2"
         android:layout_below="@+id/retypeText"
         android:layout_marginTop="33dp"
-        android:text="Email:"
+        android:labelFor="@+id/emailText"
+        android:text="@string/email"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="18sp" />
 
