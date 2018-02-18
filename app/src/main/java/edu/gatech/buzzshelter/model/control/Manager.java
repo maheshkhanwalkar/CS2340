@@ -36,6 +36,7 @@ public class Manager
             case ADMIN:
                 person = new Admin(name, username, password, email);
                 break;
+            /* Never called */
             default:
                 person = null;
         }
