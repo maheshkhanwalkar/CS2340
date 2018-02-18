@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity
             String name = nameText.getText().toString();
             String username = userText.getText().toString();
 
-            String password = userText.getText().toString();
+            String password = passText.getText().toString();
             String retype = retypeText.getText().toString();
 
             String email = emailText.getText().toString();
