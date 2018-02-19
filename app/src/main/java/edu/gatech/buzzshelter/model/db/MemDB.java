@@ -1,36 +1,30 @@
 package edu.gatech.buzzshelter.model.db;
-
 import java.util.HashMap;
 
-import edu.gatech.buzzshelter.model.auth.Credential;
-import edu.gatech.buzzshelter.model.user.Person;
-
-public class MemDB implements Database
+public class MemDB<K, V> implements Database<K, V>
 {
-    private HashMap<Credential, Person> db = new HashMap<>();
+    private HashMap<K, V> db = new HashMap<>();
 
     @Override
-    public boolean put(Person person, boolean overwrite)
+    public boolean put(K key, V value, boolean overwrite)
     {
-        Credential cred = person.getCred();
-
         /* Already exists (and write disabled) */
-        if(db.containsKey(cred) && !overwrite)
+        if(db.containsKey(key) && !overwrite)
             return false;
 
-        db.put(cred, person);
+        db.put(key, value);
         return true;
     }
 
     @Override
-    public Person get(Credential cred)
+    public V get(K key)
     {
-        return db.get(cred);
+        return db.get(key);
     }
 
     @Override
-    public boolean contains(Credential cred)
+    public boolean contains(K key)
     {
-        return db.containsKey(cred);
+        return db.containsKey(key);
     }
 }

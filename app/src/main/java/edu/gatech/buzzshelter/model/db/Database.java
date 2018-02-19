@@ -1,14 +1,11 @@
 package edu.gatech.buzzshelter.model.db;
 
-import edu.gatech.buzzshelter.model.auth.Credential;
-import edu.gatech.buzzshelter.model.user.Person;
-
 /* Database connector */
 
-public interface Database
+public interface Database<K, V>
 {
-    boolean put(Person person, boolean overwrite);
-    Person get(Credential cred);
+    boolean put(K key, V value, boolean overwrite);
+    V get(K key);
 
-    boolean contains(Credential cred);
+    boolean contains(K key);
 }
