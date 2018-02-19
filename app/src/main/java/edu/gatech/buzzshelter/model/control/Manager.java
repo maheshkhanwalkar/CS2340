@@ -11,11 +11,11 @@ import edu.gatech.buzzshelter.model.user.User;
 public class Manager
 {
     private static final Manager ourInstance = new Manager();
-    private Database provider;
+    private Database<Credential, Person> provider;
 
     private Manager()
     {
-        provider = new MemDB();
+        provider = new MemDB<>();
     }
 
     public static Manager getInstance()
@@ -42,7 +42,7 @@ public class Manager
         }
 
         /* Write to database */
-        return provider.put(person, false);
+        return provider.put(person.getCred(), person, false);
     }
 
     public boolean login(String username, String password)
