@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 
+import java.io.InputStream;
+
 import edu.gatech.buzzshelter.R;
+import edu.gatech.buzzshelter.model.control.Manager;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -27,6 +30,10 @@ public class MainActivity extends AppCompatActivity
 
             startActivity(landing);
         });
+
+        /* Load shelter data */
+        InputStream stream = getResources().openRawResource(R.raw.shelter);
+        Manager.getInstance().parseShelter(stream);
     }
 
     @Override

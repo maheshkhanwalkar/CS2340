@@ -3,21 +3,21 @@ package edu.gatech.buzzshelter.model.user;
 public class Shelter
 {
     /* Shelter information */
-    private int key, capacity;
-    private String name, restrict;
+    private int key;
+    private String name, restrict, capacity;
     private double latitude, longitude;
     private String address, notes, phone;
 
     /* Construct Shelter object */
-    public Shelter(int key, int capacity,
-        String name, String restrict, double latitude, double longitude,
-        String address, String notes, String phone)
+    public Shelter(int key, String name, String capacity, String restrict,
+         double longitude, double latitude, String address, String notes, String phone)
     {
         this.key = key;
         this.capacity = capacity;
         this.name = name;
         this.restrict = restrict;
         this.latitude = latitude;
+        this.longitude = longitude;
         this.address = address;
         this.notes = notes;
         this.phone = phone;
@@ -32,7 +32,7 @@ public class Shelter
         return key;
     }
 
-    public int getCapacity()
+    public String getCapacity()
     {
         return capacity;
     }
