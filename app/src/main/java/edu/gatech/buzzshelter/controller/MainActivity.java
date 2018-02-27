@@ -1,5 +1,6 @@
 package edu.gatech.buzzshelter.controller;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         Button logout = findViewById(R.id.logoutButton);
+        Button read = findViewById(R.id.readButton);
 
         /* Logout implementation */
         logout.setOnClickListener(v -> {
@@ -31,9 +33,11 @@ public class MainActivity extends AppCompatActivity
             startActivity(landing);
         });
 
-        /* Load shelter data */
-        InputStream stream = getResources().openRawResource(R.raw.shelter);
-        Manager.getInstance().parseShelter(stream);
+        /* Load shelter page */
+        read.setOnClickListener(v -> {
+            Intent landing = new Intent(this, ListActivity.class);
+            startActivity(landing);
+        });
     }
 
     @Override
