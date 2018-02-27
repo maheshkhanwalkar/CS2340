@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
 
         /* Load shelter page */
         read.setOnClickListener(v -> {
-            Intent landing = new Intent(this, ListActivity.class);
+            Intent landing = new Intent(this, edu.gatech.buzzshelter.controller.ListActivity.class);
             startActivity(landing);
         });
     }

@@ -26,10 +26,11 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
 
         InputStream stream = getResources().openRawResource(R.raw.shelter);
-        Manager.getInstance().parseShelter(stream);
+        Manager manager = Manager.getInstance();
+        manager.parseShelter(stream);
 
         RecyclerView recyclerView = findViewById(R.id.shelterList);
-        recyclerView.setAdapter(new SimpleRecyclerViewAdapter(Manager.getInstance().getShelters()));
+        recyclerView.setAdapter(new SimpleRecyclerViewAdapter(manager.getShelters()));
     }
 
     public class SimpleRecyclerViewAdapter extends RecyclerView.Adapter<SimpleRecyclerViewAdapter.ViewHolder> {
