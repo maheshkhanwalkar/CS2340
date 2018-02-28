@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button logout = findViewById(R.id.logoutButton);
+        Button logout = findViewById(R.id.backButton);
         Button read = findViewById(R.id.readButton);
 
         /* Logout implementation */
