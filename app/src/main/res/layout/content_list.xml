@@ -26,5 +26,7 @@
         android:layout_above="@id/backButton"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="15dp" />
+        android:layout_margin="15dp"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/shelter_list_content" />
 </RelativeLayout>

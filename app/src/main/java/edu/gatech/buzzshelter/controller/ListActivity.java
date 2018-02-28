@@ -1,5 +1,6 @@
 package edu.gatech.buzzshelter.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +21,7 @@ import edu.gatech.buzzshelter.model.control.Manager;
 import edu.gatech.buzzshelter.model.user.Shelter;
 
 public class ListActivity extends AppCompatActivity {
+    public static final String ARG_SHELTER_ID = "shelter_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +34,6 @@ public class ListActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.shelterList);
         recyclerView.setAdapter(new SimpleRecyclerViewAdapter(manager.getShelters()));
-
-        /* FIXME: Adjust the layout to what is best */
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public class SimpleRecyclerViewAdapter extends RecyclerView.Adapter<SimpleRecyclerViewAdapter.ViewHolder> {
@@ -60,6 +59,13 @@ public class ListActivity extends AppCompatActivity {
             holder.mContentView.setText(holder.mShelter.getNotes());
 
             // listener?
+            holder.mView.setOnClickListener(v -> {
+                Intent intent = new Intent(v.getContext(), ShelterActivity.class);
+                intent.putExtra(ARG_SHELTER_ID, holder.mShelter.getKey());
+
+                //now just display the new window
+                startActivity(intent);
+            });
         }
 
         @Override
