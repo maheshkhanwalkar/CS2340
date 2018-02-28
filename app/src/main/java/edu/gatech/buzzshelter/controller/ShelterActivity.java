@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Optional;
+
 import edu.gatech.buzzshelter.R;
 import edu.gatech.buzzshelter.model.control.Manager;
 import edu.gatech.buzzshelter.model.user.Shelter;
@@ -22,12 +24,11 @@ import edu.gatech.buzzshelter.model.user.Shelter;
 public class ShelterActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("Sup YOOOOO!");
 
         TextView restrictions = findViewById(R.id.restrictions);
         TextView capacity = findViewById(R.id.capacity);
@@ -38,33 +39,43 @@ public class ShelterActivity extends AppCompatActivity {
         Manager manager = Manager.getInstance();
         int id = getIntent().getIntExtra(ListActivity.ARG_SHELTER_ID, -1);
 
-        if (id != -1) {
-            Shelter s = null;
+        /* Fatal error (shouldn't happen) */
+        if (id == -1)
+            return;
 
-            for (Shelter shelter : manager.getShelters()) {
-                if (shelter.getKey() == id) {
-                    s = shelter;
-                }
+        Optional<Shelter> result = manager.getShelters()
+                .stream().filter(x -> x.getKey() == id).findFirst();
+
+        /* Fatal error (shouldn't happen) */
+        if(!result.isPresent())
+            return;
+
+        Shelter s = result.get();
+
+        /* Set the values appropriately */
+        toolbar.setTitle(s.getName());
+        restrictions.setText(s.getRestrict());
+        capacity.setText(s.getCapacity());
+        address.setText(s.getAddress());
+        notes.setText(s.getNotes());
+        phone.setText(s.getPhone());
+
+        phone.setOnClickListener(v ->
+        {
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + phone.getText()));
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                    != PackageManager.PERMISSION_GRANTED)
+            {
+                requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, 1);
             }
 
-            toolbar.setTitle(s.getName());
-            restrictions.setText(s.getRestrict());
-            capacity.setText(s.getCapacity());
-            address.setText(s.getAddress());
-            notes.setText(s.getNotes());
-            phone.setText(s.getPhone());
+            startActivity(callIntent);
+        });
 
-            phone.setOnClickListener(v -> {
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:" + phone.getText()));
-
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[] {Manifest.permission.CALL_PHONE}, 1);
-                }
-
-                startActivity(callIntent);
-            });
-        }
+        /* Set toolbar (after title is set) */
+        setSupportActionBar(toolbar);
     }
 
 }
