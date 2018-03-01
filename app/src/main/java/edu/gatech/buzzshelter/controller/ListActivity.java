@@ -17,11 +17,13 @@ import edu.gatech.buzzshelter.R;
 import edu.gatech.buzzshelter.model.control.Manager;
 import edu.gatech.buzzshelter.model.user.Shelter;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity
+{
     public static final String ARG_SHELTER_ID = "shelter_id";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
@@ -39,7 +41,8 @@ public class ListActivity extends AppCompatActivity {
         });
     }
 
-    public class SimpleRecyclerViewAdapter extends RecyclerView.Adapter<SimpleRecyclerViewAdapter.ViewHolder> {
+    public class SimpleRecyclerViewAdapter extends RecyclerView.Adapter<SimpleRecyclerViewAdapter.ViewHolder>
+    {
         private final List<Shelter> mShelters;
 
         public SimpleRecyclerViewAdapter(List<Shelter> shelters) {
@@ -54,19 +57,17 @@ public class ListActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            Manager manager = Manager.getInstance();
-
+        public void onBindViewHolder(ViewHolder holder, int position)
+        {
             holder.mShelter = mShelters.get(position);
             holder.mName.setText(holder.mShelter.getName());
             holder.mContentView.setText(holder.mShelter.getNotes());
 
-            // listener?
             holder.mView.setOnClickListener(v -> {
                 Intent intent = new Intent(v.getContext(), ShelterActivity.class);
                 intent.putExtra(ARG_SHELTER_ID, holder.mShelter.getKey());
 
-                //now just display the new window
+                /* Display detailed view */
                 startActivity(intent);
             });
         }
@@ -76,13 +77,15 @@ public class ListActivity extends AppCompatActivity {
             return mShelters.size();
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder
+        {
             public final View mView;
             public final TextView mName;
             public final TextView mContentView;
             public Shelter mShelter;
 
-            public ViewHolder(View view) {
+            public ViewHolder(View view)
+            {
                 super(view);
                 mView = view;
                 mName = view.findViewById(R.id.name);
@@ -90,7 +93,8 @@ public class ListActivity extends AppCompatActivity {
             }
 
             @Override
-            public String toString() {
+            public String toString()
+            {
                 return super.toString() + " '" + mContentView.getText() + "'";
             }
         }
