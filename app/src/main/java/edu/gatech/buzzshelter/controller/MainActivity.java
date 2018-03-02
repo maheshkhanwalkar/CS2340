@@ -18,7 +18,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button logout = findViewById(R.id.logoutButton);
+        Button logout = findViewById(R.id.backButton);
+        Button read = findViewById(R.id.readButton);
 
         /* Logout implementation */
         logout.setOnClickListener(v -> {
@@ -27,12 +28,11 @@ public class MainActivity extends AppCompatActivity
 
             startActivity(landing);
         });
-    }
 
-    @Override
-    public void onBackPressed()
-    {
-        /* Do nothing */
-        /* Only logout can go 'back' */
+        /* Load shelter page */
+        read.setOnClickListener(v -> {
+            Intent landing = new Intent(this, edu.gatech.buzzshelter.controller.ListActivity.class);
+            startActivity(landing);
+        });
     }
 }

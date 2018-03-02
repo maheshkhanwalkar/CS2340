@@ -29,7 +29,8 @@ public class WelcomeActivity extends AppCompatActivity
         });
 
         register.setOnClickListener(v -> {
-            /* TODO */
+            Intent registerIntent = new Intent(this, RegisterActivity.class);
+            startActivity(registerIntent);
         });
     }
 
