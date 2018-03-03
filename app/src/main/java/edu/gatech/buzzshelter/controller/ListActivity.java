@@ -4,14 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import edu.gatech.buzzshelter.R;
 import edu.gatech.buzzshelter.model.control.Manager;
@@ -20,6 +25,8 @@ import edu.gatech.buzzshelter.model.user.Shelter;
 public class ListActivity extends AppCompatActivity
 {
     public static final String ARG_SHELTER_ID = "shelter_id";
+    public final Manager manager = Manager.getInstance();
+    List<Shelter> shelterList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,11 +35,34 @@ public class ListActivity extends AppCompatActivity
         setContentView(R.layout.activity_list);
 
         InputStream stream = getResources().openRawResource(R.raw.shelter);
-        Manager manager = Manager.getInstance();
         manager.parseShelter(stream);
+        shelterList = new ArrayList<>(manager.getShelters());
 
+        EditText searchBar = findViewById(R.id.searchBar);
         RecyclerView recyclerView = findViewById(R.id.shelterList);
-        recyclerView.setAdapter(new SimpleRecyclerViewAdapter(manager.getShelters()));
+        recyclerView.setAdapter(new SimpleRecyclerViewAdapter(shelterList));
+
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                shelterList = new ArrayList<>(manager.getShelters());
+
+                shelterList.removeIf(shelter -> !(
+                    shelter.getRestrict().toUpperCase().contains(editable.toString().toUpperCase()) ||
+                    shelter.getName().toUpperCase().contains(editable.toString().toUpperCase()))
+                );
+
+                System.out.println(shelterList);
+
+                recyclerView.getAdapter().notifyDataSetChanged();
+            }
+        });
 
         Button back = findViewById(R.id.backButton);
         back.setOnClickListener(v -> {
