@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class ListActivity extends AppCompatActivity
 {
     public static final String ARG_SHELTER_ID = "shelter_id";
     public final Manager manager = Manager.getInstance();
-    List<Shelter> shelterList;
+    private List<Shelter> shelterList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -51,15 +52,17 @@ public class ListActivity extends AppCompatActivity
 
             @Override
             public void afterTextChanged(Editable editable) {
-                shelterList = new ArrayList<>(manager.getShelters());
+
+                List<Shelter> total = manager.getShelters();
+
+                shelterList.clear();
+                shelterList.addAll(total);
 
                 shelterList.removeIf(shelter -> !(
                     shelter.getRestrict().toUpperCase().contains(editable.toString().toUpperCase()) ||
                     shelter.getName().toUpperCase().contains(editable.toString().toUpperCase()))
                 );
-
-                System.out.println(shelterList);
-
+                
                 recyclerView.getAdapter().notifyDataSetChanged();
             }
         });
@@ -109,12 +112,12 @@ public class ListActivity extends AppCompatActivity
 
         public class ViewHolder extends RecyclerView.ViewHolder
         {
-            public final View mView;
-            public final TextView mName;
-            public final TextView mContentView;
-            public Shelter mShelter;
+            final View mView;
+            final TextView mName;
+            final TextView mContentView;
+            Shelter mShelter;
 
-            public ViewHolder(View view)
+            ViewHolder(View view)
             {
                 super(view);
                 mView = view;
