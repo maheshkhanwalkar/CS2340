@@ -23,9 +23,6 @@ public class Shelter
         this.phone = phone;
     }
 
-
-    /* TODO add variables */
-
     /* Getters */
     public int getKey()
     {
