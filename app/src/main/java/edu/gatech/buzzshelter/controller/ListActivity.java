@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
 
 import edu.gatech.buzzshelter.R;
 import edu.gatech.buzzshelter.model.control.Manager;
@@ -52,7 +50,8 @@ public class ListActivity extends AppCompatActivity
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
-            public void afterTextChanged(Editable editable) {
+            public void afterTextChanged(Editable editable)
+            {
 
                 List<Shelter> total = manager.getShelters();
 
@@ -93,6 +92,7 @@ public class ListActivity extends AppCompatActivity
         });
 
         Button back = findViewById(R.id.backButton);
+
         back.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -149,6 +149,7 @@ public class ListActivity extends AppCompatActivity
             ViewHolder(View view)
             {
                 super(view);
+
                 mView = view;
                 mName = view.findViewById(R.id.name);
                 mContentView = view.findViewById(R.id.content);
