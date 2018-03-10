@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -58,10 +59,34 @@ public class ListActivity extends AppCompatActivity
                 shelterList.clear();
                 shelterList.addAll(total);
 
-                shelterList.removeIf(shelter -> !(
-                    shelter.getRestrict().toUpperCase().contains(editable.toString().toUpperCase()) ||
-                    shelter.getName().toUpperCase().contains(editable.toString().toUpperCase()))
-                );
+                /* Process the entered words */
+                String[] criteria =
+                        Arrays.stream(editable.toString().split(" "))
+                        .map(String::toLowerCase).toArray(String[]::new);
+
+                shelterList.removeIf(shelter ->
+                {
+                    boolean found = true;
+
+                    /* Check against restrict, special notes, and name */
+                    String restrict = shelter.getRestrict().toLowerCase();
+                    String notes = shelter.getNotes().toLowerCase();
+                    String name = shelter.getName().toLowerCase();
+
+                    for (String arg : criteria)
+                    {
+                        /* Not found at all */
+                        if(!restrict.contains(arg)
+                                && !notes.contains(arg)
+                                && !name.contains(arg))
+                        {
+                            found = false;
+                            break;
+                        }
+                    }
+
+                    return !found;
+                });
                 
                 recyclerView.getAdapter().notifyDataSetChanged();
             }
@@ -78,14 +103,17 @@ public class ListActivity extends AppCompatActivity
     {
         private final List<Shelter> mShelters;
 
-        public SimpleRecyclerViewAdapter(List<Shelter> shelters) {
+        SimpleRecyclerViewAdapter(List<Shelter> shelters)
+        {
             mShelters = shelters;
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+        {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.shelter_list_content, parent, false);
+
             return new ViewHolder(view);
         }
 
@@ -106,7 +134,8 @@ public class ListActivity extends AppCompatActivity
         }
 
         @Override
-        public int getItemCount() {
+        public int getItemCount()
+        {
             return mShelters.size();
         }
 
