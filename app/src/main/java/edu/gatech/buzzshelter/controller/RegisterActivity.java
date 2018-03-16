@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import edu.gatech.buzzshelter.R;
-import edu.gatech.buzzshelter.model.control.Manager;
-import edu.gatech.buzzshelter.model.user.Person;
+import edu.gatech.buzzshelter.model.control.UserManager;
+import edu.gatech.buzzshelter.model.facade.LoginFacade;
 import edu.gatech.buzzshelter.model.user.PersonType;
 
 public class RegisterActivity extends AppCompatActivity
@@ -139,8 +139,8 @@ public class RegisterActivity extends AppCompatActivity
             }
 
             /* Pass to model */
-            Manager manager = Manager.getInstance();
-            boolean result = manager.register((PersonType)types.getSelectedItem(),
+            LoginFacade facade = LoginFacade.getInstance();
+            boolean result = facade.register((PersonType)types.getSelectedItem(),
                     name, username, password, email);
 
             /* Perform transition or error reporting */
@@ -157,7 +157,7 @@ public class RegisterActivity extends AppCompatActivity
             }
 
             /* Perform auto-login */
-            result = manager.login(username, password);
+            result = facade.login(username, password);
 
             if(!result)
             {

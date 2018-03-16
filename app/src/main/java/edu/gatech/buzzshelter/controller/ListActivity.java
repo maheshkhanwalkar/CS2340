@@ -19,13 +19,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import edu.gatech.buzzshelter.R;
-import edu.gatech.buzzshelter.model.control.Manager;
+import edu.gatech.buzzshelter.model.control.UserManager;
+import edu.gatech.buzzshelter.model.facade.DataFacade;
 import edu.gatech.buzzshelter.model.user.Shelter;
 
 public class ListActivity extends AppCompatActivity
 {
     public static final String ARG_SHELTER_ID = "shelter_id";
-    public final Manager manager = Manager.getInstance();
+    public final DataFacade manager = DataFacade.getInstance();
     private List<Shelter> shelterList = new ArrayList<>();
 
     @Override

@@ -1,32 +1,24 @@
 package edu.gatech.buzzshelter.model.user;
 
-import edu.gatech.buzzshelter.model.auth.Credential;
-
 public class Person
 {
     private String name;
-    private Credential cred;
+    private String username, password;
 
     private boolean locked;
     private String email;
 
-    /* There are probably other fields here */
-    /* TODO check notecard/spec for this */
-
     public Person(String name, String username, String password, String email)
     {
-        this(name, new Credential(username, password), email);
+        this.name = name;
+        this.username = username;
+        this.password = password;
     }
 
-    public Person(String name, Credential cred, String email)
-    {
-        this.name = name;
-        this.cred = cred;
-        this.email = email;
-    }
+    /* Check if password matches */
+    public boolean checkPass(String password) { return password.equals(this.password); }
 
     /* Getters and Setters */
-
     public String getName()
     {
         return name;
@@ -36,13 +28,9 @@ public class Person
         this.name = name;
     }
 
-    public Credential getCred()
+    public String getUsername()
     {
-        return cred;
-    }
-    public void setCred(Credential cred)
-    {
-        this.cred = cred;
+        return username;
     }
 
     public String getEmail()

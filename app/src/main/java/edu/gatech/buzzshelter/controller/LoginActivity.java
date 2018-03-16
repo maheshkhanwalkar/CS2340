@@ -2,8 +2,6 @@ package edu.gatech.buzzshelter.controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import edu.gatech.buzzshelter.R;
-import edu.gatech.buzzshelter.model.control.Manager;
+import edu.gatech.buzzshelter.model.control.UserManager;
+import edu.gatech.buzzshelter.model.facade.LoginFacade;
 
 public class LoginActivity extends AppCompatActivity
 {
@@ -50,7 +48,7 @@ public class LoginActivity extends AppCompatActivity
                         InputMethodManager.HIDE_NOT_ALWAYS);
             }
 
-            Manager control = Manager.getInstance();
+            LoginFacade control = LoginFacade.getInstance();
 
             /* Try to login */
             if(control.login(userText.getText().toString(), passText.getText().toString()))
