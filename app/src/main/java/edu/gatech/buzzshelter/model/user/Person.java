@@ -8,11 +8,16 @@ public class Person
     private boolean locked;
     private String email;
 
-    public Person(String name, String username, String password, String email)
+    private PersonType type;
+
+    public Person(String name, String username, String password, String email,
+        PersonType type)
     {
         this.name = name;
         this.username = username;
         this.password = password;
+        this.email = email;
+        this.type = type;
     }
 
     /* Check if password matches */
@@ -40,6 +45,11 @@ public class Person
     public void setEmail(String email)
     {
         this.email = email;
+    }
+
+    public PersonType getType()
+    {
+        return type;
     }
 
     public boolean isLocked()

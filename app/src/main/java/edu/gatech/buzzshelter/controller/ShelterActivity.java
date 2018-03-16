@@ -34,9 +34,7 @@ public class ShelterActivity extends AppCompatActivity {
         TextView notes = findViewById(R.id.notes);
         Button phone = findViewById(R.id.phone);
 
-        LoginFacade login = LoginFacade.getInstance();
         DataFacade data = DataFacade.getInstance();
-
         int id = getIntent().getIntExtra(ListActivity.ARG_SHELTER_ID, -1);
 
         /* Fatal error (shouldn't happen) */
