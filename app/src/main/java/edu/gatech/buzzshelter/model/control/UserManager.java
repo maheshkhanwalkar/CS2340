@@ -1,13 +1,13 @@
 package edu.gatech.buzzshelter.model.control;
 
 import edu.gatech.buzzshelter.model.db.Database;
-import edu.gatech.buzzshelter.model.db.MemDB;
+import edu.gatech.buzzshelter.model.db.types.MemDB;
 import edu.gatech.buzzshelter.model.user.Person;
 import edu.gatech.buzzshelter.model.user.PersonType;
 
 public class UserManager
 {
-    private Database<String, Person> provider;
+    private Database<Person> provider;
     public UserManager()
     {
         provider = new MemDB<>();
@@ -19,7 +19,7 @@ public class UserManager
         Person person = new Person(name, username, password, email, type);
 
         /* Write to database */
-        return provider.put(person.getName(), person, false);
+        return provider.put(person.getName(), person);
     }
 
     public boolean login(String username, String password)

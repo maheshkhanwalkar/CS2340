@@ -9,17 +9,17 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import edu.gatech.buzzshelter.R;
-import edu.gatech.buzzshelter.model.control.UserManager;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
 import edu.gatech.buzzshelter.model.user.Shelter;
 
@@ -37,13 +37,17 @@ public class ListActivity extends AppCompatActivity
 
         InputStream stream = getResources().openRawResource(R.raw.shelter);
         manager.parseShelter(stream);
-        shelterList = new ArrayList<>(manager.getShelters());
+        shelterList = manager.getShelters();
 
-        EditText searchBar = findViewById(R.id.searchBar);
+        /* Search parameters */
+        EditText nameBar = findViewById(R.id.searchBar);
+        Spinner gSpinner = findViewById(R.id.gSpinner);
+        Spinner ageSpinner = findViewById(R.id.ageSpinner);
+
         RecyclerView recyclerView = findViewById(R.id.shelterList);
         recyclerView.setAdapter(new SimpleRecyclerViewAdapter(shelterList));
 
-        searchBar.addTextChangedListener(new TextWatcher() {
+        nameBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
@@ -53,50 +57,20 @@ public class ListActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable editable)
             {
-
-                List<Shelter> total = manager.getShelters();
+                /* Process the entered words */
+                String criteria = editable.toString().toLowerCase();
+                Set<Shelter> result = manager.matchName(criteria);
 
                 shelterList.clear();
-                shelterList.addAll(total);
 
-                /* Process the entered words */
-                String[] criteria =
-                        Arrays.stream(editable.toString().split(" "))
-                        .map(String::toLowerCase).toArray(String[]::new);
+                List<Shelter> matches = manager.getShelters().stream()
+                        .filter(result::contains)
+                        .collect(Collectors.toList());
 
-                shelterList.removeIf(shelter ->
-                {
-                    boolean found = true;
+                shelterList.addAll(matches);
 
-                    /* Check against restrict, special notes, and name */
-                    String restrict = shelter.getRestrict().toLowerCase();
-                    String notes = shelter.getNotes().toLowerCase();
-                    String name = shelter.getName().toLowerCase();
-
-                    for (String arg : criteria)
-                    {
-                        /* Not found at all */
-                        if(!restrict.contains(arg)
-                                && !notes.contains(arg)
-                                && !name.contains(arg))
-                        {
-                            found = false;
-                            break;
-                        }
-                    }
-
-                    return !found;
-                });
-                
                 recyclerView.getAdapter().notifyDataSetChanged();
             }
-        });
-
-        Button back = findViewById(R.id.backButton);
-
-        back.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
         });
     }
 

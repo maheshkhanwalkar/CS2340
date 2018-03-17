@@ -3,6 +3,7 @@ package edu.gatech.buzzshelter.model.facade;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import edu.gatech.buzzshelter.model.control.ShelterManager;
 import edu.gatech.buzzshelter.model.user.Shelter;
@@ -23,8 +24,13 @@ public class DataFacade
          manager.parseShelter(stream);
     }
 
+    public Set<Shelter> matchName(String name)
+    {
+        return manager.matchName(name);
+    }
+
     public List<Shelter> getShelters()
     {
-        return new ArrayList<>(manager.getShelters());
+        return manager.getShelters();
     }
 }
