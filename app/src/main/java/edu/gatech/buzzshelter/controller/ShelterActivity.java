@@ -14,9 +14,7 @@ import android.widget.TextView;
 import java.util.Optional;
 
 import edu.gatech.buzzshelter.R;
-import edu.gatech.buzzshelter.model.control.UserManager;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
-import edu.gatech.buzzshelter.model.facade.LoginFacade;
 import edu.gatech.buzzshelter.model.user.Shelter;
 
 public class ShelterActivity extends AppCompatActivity {

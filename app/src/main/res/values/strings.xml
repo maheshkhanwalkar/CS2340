@@ -19,6 +19,7 @@
     <string name="back">Back</string>
     <string name="age_range">Age Range:</string>
     <string name="gender">Gender:</string>
+    <string name="shelter_list">Shelter List</string>
     <string-array name="gender_array">
         <item>Any</item>
         <item>Men</item>
