@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import edu.gatech.buzzshelter.R;
 
 public class MainActivity extends AppCompatActivity
@@ -23,9 +25,9 @@ public class MainActivity extends AppCompatActivity
 
         /* Logout implementation */
         logout.setOnClickListener(v -> {
-            Intent landing = new Intent(this, WelcomeActivity.class);
-            landing.putExtra("DISABLE_BACK", true);
+            FirebaseAuth.getInstance().signOut();
 
+            Intent landing = new Intent(this, WelcomeActivity.class);
             startActivity(landing);
         });
 
@@ -36,11 +38,10 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    /* Intentional: DO NOT REMOVE */
     @Override
     public void onBackPressed()
     {
-        /* Do nothing */
-        /* Only logout can go 'back' */
+        super.onBackPressed();
+        FirebaseAuth.getInstance().signOut();
     }
 }
