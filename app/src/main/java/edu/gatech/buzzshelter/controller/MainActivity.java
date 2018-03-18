@@ -35,4 +35,12 @@ public class MainActivity extends AppCompatActivity
             startActivity(landing);
         });
     }
+
+    /* Intentional: DO NOT REMOVE */
+    @Override
+    public void onBackPressed()
+    {
+        /* Do nothing */
+        /* Only logout can go 'back' */
+    }
 }

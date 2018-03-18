@@ -9,17 +9,20 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import edu.gatech.buzzshelter.R;
+import edu.gatech.buzzshelter.model.db.util.Toolkit;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
 import edu.gatech.buzzshelter.model.user.Shelter;
 
@@ -44,10 +47,48 @@ public class ListActivity extends AppCompatActivity
         Spinner gSpinner = findViewById(R.id.gSpinner);
         Spinner ageSpinner = findViewById(R.id.ageSpinner);
 
+        /* Isolated */
+        {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
+
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            gSpinner.setAdapter(adapter);
+        }
+
+        {
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.age_array, android.R.layout.simple_spinner_dropdown_item);
+
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ageSpinner.setAdapter(adapter);
+        }
+
         RecyclerView recyclerView = findViewById(R.id.shelterList);
         recyclerView.setAdapter(new SimpleRecyclerViewAdapter(shelterList));
 
         nameBar.addTextChangedListener(new TextWatcher() {
+
+            private Set<Shelter> ageSet(Set<Shelter> def)
+            {
+                /* Default set */
+                if(ageSpinner.getSelectedItem().toString().equals("Any"))
+                    return def;
+
+                /* TODO perform age-based search */
+                return new HashSet<>();
+            }
+
+            private Set<Shelter> genderSet(Set<Shelter> def)
+            {
+                /* Default set */
+                if(gSpinner.getSelectedItem().toString().equals("Any"))
+                    return def;
+
+                /* TODO perform gender-based search */
+                return new HashSet<>();
+            }
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
@@ -63,11 +104,13 @@ public class ListActivity extends AppCompatActivity
 
                 shelterList.clear();
 
-                List<Shelter> matches = manager.getShelters().stream()
+                Set<Shelter> nMatch = manager.getShelters().stream()
                         .filter(result::contains)
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toSet());
 
-                shelterList.addAll(matches);
+                /* Intersect the results */
+                Set<Shelter> all = Toolkit.intersect(nMatch, ageSet(nMatch), genderSet(nMatch));
+                shelterList.addAll(all);
 
                 recyclerView.getAdapter().notifyDataSetChanged();
             }

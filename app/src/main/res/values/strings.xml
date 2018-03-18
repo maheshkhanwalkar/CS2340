@@ -17,4 +17,17 @@
     <string name="title_activity_list">Shelter List</string>
     <string name="title_activity_shelter">Shelter</string>
     <string name="back">Back</string>
+    <string name="age_range">Age Range:</string>
+    <string name="gender">Gender:</string>
+    <string-array name="gender_array">
+        <item>Any</item>
+        <item>Men</item>
+        <item>Women</item>
+    </string-array>
+    <string-array name="age_array">
+        <item>Any</item>
+        <item>Children</item>
+        <item>Families with newborns</item>
+        <item>Young Adult</item>
+    </string-array>
 </resources>
