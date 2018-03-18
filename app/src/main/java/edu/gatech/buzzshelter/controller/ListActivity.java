@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -19,7 +20,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import edu.gatech.buzzshelter.R;
 import edu.gatech.buzzshelter.model.db.util.Toolkit;
@@ -31,6 +31,39 @@ public class ListActivity extends AppCompatActivity
     public static final String ARG_SHELTER_ID = "shelter_id";
     public final DataFacade manager = DataFacade.getInstance();
     private List<Shelter> shelterList = new ArrayList<>();
+
+    private Set<Shelter> ageSet(Set<Shelter> def, Spinner ageSpinner)
+    {
+        /* Default set */
+        String age = ageSpinner.getSelectedItem().toString();
+
+        if(age.equals("Any"))
+            return def;
+
+        return manager.matchAge(age);
+    }
+
+    private Set<Shelter> genderSet(Set<Shelter> def, Spinner gSpinner)
+    {
+                /* Default set */
+        String gender = gSpinner.getSelectedItem().toString();
+
+        if(gender.equals("Any"))
+            return def;
+
+        return manager.matchGender(gender);
+    }
+
+    private Set<Shelter> nameSet(Set<Shelter> def, EditText nameBar)
+    {
+        String name = nameBar.getText().toString().toLowerCase();
+
+                /* Default set */
+        if(name.equals(""))
+            return def;
+
+        return manager.matchName(name);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,6 +80,10 @@ public class ListActivity extends AppCompatActivity
         Spinner gSpinner = findViewById(R.id.gSpinner);
         Spinner ageSpinner = findViewById(R.id.ageSpinner);
 
+
+        RecyclerView recyclerView = findViewById(R.id.shelterList);
+        recyclerView.setAdapter(new SimpleRecyclerViewAdapter(shelterList));
+
         /* Isolated */
         {
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -54,6 +91,30 @@ public class ListActivity extends AppCompatActivity
 
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             gSpinner.setAdapter(adapter);
+
+            gSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+            {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+                {
+                    /* Process the current state */
+                    Set<Shelter> copy = new HashSet<>(manager.getShelters());
+                    shelterList.clear();
+
+                    /* Intersect the results */
+                    Set<Shelter> all = Toolkit.intersect(nameSet(copy, nameBar),
+                            ageSet(copy, ageSpinner), genderSet(copy, gSpinner));
+
+                    shelterList.addAll(all);
+                    recyclerView.getAdapter().notifyDataSetChanged();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent)
+                {
+
+                }
+            });
         }
 
         {
@@ -62,32 +123,33 @@ public class ListActivity extends AppCompatActivity
 
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             ageSpinner.setAdapter(adapter);
+
+            ageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+            {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+                {
+                    /* Process the current state */
+                    Set<Shelter> copy = new HashSet<>(manager.getShelters());
+                    shelterList.clear();
+
+                    /* Intersect the results */
+                    Set<Shelter> all = Toolkit.intersect(nameSet(copy, nameBar),
+                            ageSet(copy, ageSpinner), genderSet(copy, gSpinner));
+
+                    shelterList.addAll(all);
+                    recyclerView.getAdapter().notifyDataSetChanged();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent)
+                {
+
+                }
+            });
         }
 
-        RecyclerView recyclerView = findViewById(R.id.shelterList);
-        recyclerView.setAdapter(new SimpleRecyclerViewAdapter(shelterList));
-
         nameBar.addTextChangedListener(new TextWatcher() {
-
-            private Set<Shelter> ageSet(Set<Shelter> def)
-            {
-                /* Default set */
-                if(ageSpinner.getSelectedItem().toString().equals("Any"))
-                    return def;
-
-                /* TODO perform age-based search */
-                return new HashSet<>();
-            }
-
-            private Set<Shelter> genderSet(Set<Shelter> def)
-            {
-                /* Default set */
-                if(gSpinner.getSelectedItem().toString().equals("Any"))
-                    return def;
-
-                /* TODO perform gender-based search */
-                return new HashSet<>();
-            }
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -99,19 +161,14 @@ public class ListActivity extends AppCompatActivity
             public void afterTextChanged(Editable editable)
             {
                 /* Process the entered words */
-                String criteria = editable.toString().toLowerCase();
-                Set<Shelter> result = manager.matchName(criteria);
-
+                Set<Shelter> copy = new HashSet<>(manager.getShelters());
                 shelterList.clear();
 
-                Set<Shelter> nMatch = manager.getShelters().stream()
-                        .filter(result::contains)
-                        .collect(Collectors.toSet());
-
                 /* Intersect the results */
-                Set<Shelter> all = Toolkit.intersect(nMatch, ageSet(nMatch), genderSet(nMatch));
-                shelterList.addAll(all);
+                Set<Shelter> result = Toolkit.intersect(nameSet(copy, nameBar),
+                        ageSet(copy, ageSpinner), genderSet(copy, gSpinner));
 
+                shelterList.addAll(result);
                 recyclerView.getAdapter().notifyDataSetChanged();
             }
         });

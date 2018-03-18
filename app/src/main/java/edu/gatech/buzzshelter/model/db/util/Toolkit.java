@@ -31,7 +31,7 @@ public final class Toolkit
         return sets[0].stream()
                 .filter(item -> Arrays.stream(sets)
                         .skip(1)
-                        .map(elem -> elem.contains(item))
+                        .map(set -> set.contains(item))
                         .reduce((x, y) -> x && y).orElse(false))
                 .collect(Collectors.toSet());
     }

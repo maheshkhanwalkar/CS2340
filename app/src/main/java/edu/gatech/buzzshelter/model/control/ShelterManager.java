@@ -27,6 +27,16 @@ public class ShelterManager
         return matcher(x -> x.matchName(name));
     }
 
+    public Set<Shelter> matchGender(String gender)
+    {
+        return matcher(x -> x.matchGender(gender));
+    }
+
+    public Set<Shelter> matchAge(String age)
+    {
+        return matcher(x -> x.matchAge(age));
+    }
+
     public List<Shelter> getShelters()
     {
         return shelters.values();

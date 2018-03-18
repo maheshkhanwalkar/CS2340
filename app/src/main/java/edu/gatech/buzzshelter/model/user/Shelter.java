@@ -84,6 +84,32 @@ public class Shelter
                 .toLowerCase().equals(name);
     }
 
+    public boolean matchGender(String gender)
+    {
+        String[] all = restrict.split("/");
+
+        for(String item : all)
+        {
+            if(item.toLowerCase().equals(gender.toLowerCase()))
+                return true;
+        }
+
+        return false;
+    }
+
+    public boolean matchAge(String age)
+    {
+        String[] all = restrict.split("/");
+
+        for(String item : all)
+        {
+            if(item.toLowerCase().equals(age.toLowerCase()))
+                return true;
+        }
+
+        return false;
+    }
+
 
     @Override
     public boolean equals(Object obj)

@@ -29,6 +29,16 @@ public class DataFacade
         return manager.matchName(name);
     }
 
+    public Set<Shelter> matchGender(String gender)
+    {
+        return manager.matchGender(gender);
+    }
+
+    public Set<Shelter> matchAge(String age)
+    {
+        return manager.matchAge(age);
+    }
+
     public List<Shelter> getShelters()
     {
         return manager.getShelters();
