@@ -54,7 +54,7 @@ public class ShelterActivity extends AppCompatActivity {
         capacity.setText(s.getCapacity());
         address.setText(s.getAddress());
         notes.setText(s.getNotes());
-        phone.setText(s.getPhone());
+        phone.setText(String.format("  %s", s.getPhone()));
 
         phone.setOnClickListener(v ->
         {

@@ -102,7 +102,9 @@
             android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:drawableStart="@drawable/ic_phone_black_24px"
+            android:gravity="start|center_vertical"
+            android:text=""
             android:background="@android:color/transparent" />
 
     </LinearLayout>
