@@ -6,8 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 
-import com.google.firebase.auth.FirebaseAuth;
-
+import com.firebase.ui.auth.AuthUI;
 import edu.gatech.buzzshelter.R;
 
 public class MainActivity extends AppCompatActivity
@@ -25,15 +24,21 @@ public class MainActivity extends AppCompatActivity
 
         /* Logout implementation */
         logout.setOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut();
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(task -> {
+                        Intent landing = new Intent(this, WelcomeActivity.class);
+                        startActivity(landing);
 
-            Intent landing = new Intent(this, WelcomeActivity.class);
-            startActivity(landing);
+                        finish();
+                    });
         });
 
         /* Load shelter page */
         read.setOnClickListener(v -> {
-            Intent landing = new Intent(this, edu.gatech.buzzshelter.controller.ListActivity.class);
+            Intent landing = new Intent(this,
+                    edu.gatech.buzzshelter.controller.ListActivity.class);
+
             startActivity(landing);
         });
     }
@@ -42,6 +47,14 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed()
     {
         super.onBackPressed();
-        FirebaseAuth.getInstance().signOut();
+
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener(task -> {
+                    Intent landing = new Intent(this, WelcomeActivity.class);
+                    startActivity(landing);
+
+                    finish();
+                });
     }
 }
