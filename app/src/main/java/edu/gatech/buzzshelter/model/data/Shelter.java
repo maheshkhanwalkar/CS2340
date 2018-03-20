@@ -1,4 +1,4 @@
-package edu.gatech.buzzshelter.model.user;
+package edu.gatech.buzzshelter.model.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -60,6 +60,16 @@ public class Shelter implements Serializable
                 return false;
 
             available -= amt;
+            return true;
+        }
+
+        private boolean cancel(int amt)
+        {
+            /* Range check */
+            if(amt + available > capacity)
+                return false;
+
+            available += amt;
             return true;
         }
     }
@@ -179,6 +189,15 @@ public class Shelter implements Serializable
                 .collect(Collectors.toList()).get(0);
 
         return match.reserve(amt);
+    }
+
+    public boolean cancel(String type, int amt)
+    {
+        Shelter.Capacity match = capacity.stream()
+                .filter(x -> x.getCategory().equals(type))
+                .collect(Collectors.toList()).get(0);
+
+        return match.cancel(amt);
     }
 
     public boolean matchName(String name)

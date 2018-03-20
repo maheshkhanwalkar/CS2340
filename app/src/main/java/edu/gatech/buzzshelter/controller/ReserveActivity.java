@@ -2,7 +2,6 @@ package edu.gatech.buzzshelter.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,19 +9,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import edu.gatech.buzzshelter.R;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
-import edu.gatech.buzzshelter.model.user.Shelter;
+import edu.gatech.buzzshelter.model.data.Shelter;
 
 public class ReserveActivity extends AppCompatActivity
 {
@@ -42,7 +36,7 @@ public class ReserveActivity extends AppCompatActivity
         String name = getIntent().getStringExtra(SHELTER_NAME);
         int id = getIntent().getIntExtra(SHELTER_ID, -1);
 
-        Shelter current = facade.get(name);
+        Shelter current = facade.getShelter(name);
 
         /* Setup UI */
         setupPicker(current);
@@ -109,6 +103,7 @@ public class ReserveActivity extends AppCompatActivity
     private void addButton(Shelter s, int id)
     {
         Button reserve = findViewById(R.id.reserveButton);
+        Button backBtn = findViewById(R.id.backButton);
 
         reserve.setOnClickListener(v -> {
             Spinner amtSpinner = findViewById(R.id.amtPicker);
@@ -132,6 +127,13 @@ public class ReserveActivity extends AppCompatActivity
 
                 startActivity(back);
             }
+        });
+
+        backBtn.setOnClickListener(v -> {
+            Intent back = new Intent(this, ShelterActivity.class);
+            back.putExtra(ShelterActivity.ARG_SHELTER_ID, id);
+
+            startActivity(back);
         });
     }
 

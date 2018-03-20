@@ -18,18 +18,17 @@ import edu.gatech.buzzshelter.model.db.KVPair;
 
 public class FirebaseDB<T> extends Database<T>
 {
-    private FirebaseDatabase database;
-
+    private DatabaseReference ref;
     private volatile MemDB<T> mem = new MemDB<>();
 
     /* Lock for database operations */
     private Lock lock = new ReentrantLock();
 
     /* Should be T.class (hack) */
-    public FirebaseDB(Class<T> type)
+    public FirebaseDB(String root, Class<T> type)
     {
-        database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        ref = database.getReference(root);
 
         ref.addValueEventListener(new ValueEventListener()
         {
@@ -65,7 +64,7 @@ public class FirebaseDB<T> extends Database<T>
         lock.lock();
 
         boolean result = mem.put(key, value);
-        database.getReference(key).setValue(value);
+        ref.child(key).setValue(value);
 
         lock.unlock();
 
@@ -98,7 +97,7 @@ public class FirebaseDB<T> extends Database<T>
         lock.lock();
 
         boolean result = mem.remove(key);
-        database.getReference(key).removeValue();
+        ref.child(key).removeValue();
 
         lock.unlock();
 

@@ -13,26 +13,20 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import edu.gatech.buzzshelter.R;
-import edu.gatech.buzzshelter.model.db.Database;
-import edu.gatech.buzzshelter.model.db.types.CsvDB;
 import edu.gatech.buzzshelter.model.db.util.Toolkit;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
-import edu.gatech.buzzshelter.model.user.Shelter;
+import edu.gatech.buzzshelter.model.data.Shelter;
 
 public class ListActivity extends AppCompatActivity
 {
@@ -215,13 +209,13 @@ public class ListActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onDestroy()
+    public void onBackPressed()
     {
-        super.onDestroy();
+        super.onBackPressed();
 
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(task -> {});
+        /* 'back' should *always* go here */
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     public class SimpleRecyclerViewAdapter extends

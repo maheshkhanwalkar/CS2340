@@ -42,7 +42,7 @@
         android:layout_alignBottom="@+id/searchBar"
         android:layout_alignStart="@+id/textView2"
         android:layout_marginStart="9dp"
-        android:text="@string/shelter_list"
+        android:text="@string/name"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="18sp"
         android:labelFor="@id/searchBar"/>

@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 
 import edu.gatech.buzzshelter.model.db.Database;
 import edu.gatech.buzzshelter.model.db.types.FirebaseDB;
-import edu.gatech.buzzshelter.model.user.Shelter;
+import edu.gatech.buzzshelter.model.data.Shelter;
 
-public class ShelterManager
+public class ShelterMgr
 {
     private Database<Shelter> shelters;
 
@@ -20,7 +20,7 @@ public class ShelterManager
         if(shelters != null)
             return;
 
-        shelters = new FirebaseDB<>(Shelter.class);
+        shelters = new FirebaseDB<>("shelters", Shelter.class);
     }
 
     public Shelter get(String key)
@@ -34,7 +34,14 @@ public class ShelterManager
         return result && put(name, shelters.get(name));
     }
 
-    public boolean put(String key, Shelter value)
+    public boolean cancel(String name, String type, int amt)
+    {
+        boolean result = shelters.get(name).cancel(type, amt);
+        return result && put(name, shelters.get(name));
+    }
+
+    /* Add {key, value} to the database */
+    private boolean put(String key, Shelter value)
     {
         return shelters.put(key, value);
     }

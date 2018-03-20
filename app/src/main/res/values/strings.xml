@@ -44,4 +44,11 @@
     <string name="reserve">Reserve</string>
     <string name="type">Type:</string>
     <string name="amount">Amount:</string>
+    <string name="title_activity_reserve_list">Reservations</string>
+    <string name="details">Details:</string>
+    <string name="reservations">Reservations</string>
+    <string name="cancel_reservation">Cancel Reservation</string>
+    <string name="go_back">Go Back</string>
+    <string name="textview">TextView</string>
+    <string name="none">None</string>
 </resources>
