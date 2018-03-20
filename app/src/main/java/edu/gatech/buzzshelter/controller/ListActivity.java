@@ -1,5 +1,6 @@
 package edu.gatech.buzzshelter.controller;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +13,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -22,6 +28,8 @@ import java.util.List;
 import java.util.Set;
 
 import edu.gatech.buzzshelter.R;
+import edu.gatech.buzzshelter.model.db.Database;
+import edu.gatech.buzzshelter.model.db.types.CsvDB;
 import edu.gatech.buzzshelter.model.db.util.Toolkit;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
 import edu.gatech.buzzshelter.model.user.Shelter;
@@ -30,7 +38,9 @@ public class ListActivity extends AppCompatActivity
 {
     public static final String ARG_SHELTER_ID = "shelter_id";
     public final DataFacade manager = DataFacade.getInstance();
+
     private List<Shelter> shelterList = new ArrayList<>();
+    private ProgressDialog progress;
 
     private Set<Shelter> ageSet(Set<Shelter> def, Spinner ageSpinner)
     {
@@ -45,7 +55,7 @@ public class ListActivity extends AppCompatActivity
 
     private Set<Shelter> genderSet(Set<Shelter> def, Spinner gSpinner)
     {
-                /* Default set */
+        /* Default set */
         String gender = gSpinner.getSelectedItem().toString();
 
         if(gender.equals("Any"))
@@ -58,7 +68,7 @@ public class ListActivity extends AppCompatActivity
     {
         String name = nameBar.getText().toString().toLowerCase();
 
-                /* Default set */
+        /* Default set */
         if(name.equals(""))
             return def;
 
@@ -71,22 +81,43 @@ public class ListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        InputStream stream = getResources().openRawResource(R.raw.shelter);
-        manager.parseShelter(stream);
+        manager.setup();
+
+        if(manager.getShelters().isEmpty())
+        {
+            progress = new ProgressDialog(this);
+
+            progress.setTitle("Loading shelter information");
+            progress.setMessage("Please wait...");
+            progress.setCancelable(false);
+            progress.show();
+
+            Thread thread = new Thread(this::waitOnLoad);
+            thread.start();
+        }
+        else
+        {
+            doSetup();
+        }
+    }
+
+    public void doSetup()
+    {
+        if(progress != null)
+            progress.dismiss();
+
         shelterList = manager.getShelters();
 
-        /* Search parameters */
         EditText nameBar = findViewById(R.id.searchBar);
         Spinner gSpinner = findViewById(R.id.gSpinner);
         Spinner ageSpinner = findViewById(R.id.ageSpinner);
 
-
         RecyclerView recyclerView = findViewById(R.id.shelterList);
         recyclerView.setAdapter(new SimpleRecyclerViewAdapter(shelterList));
 
-        /* Isolated */
         {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                    ListActivity.this,
                     R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
 
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -95,13 +126,14 @@ public class ListActivity extends AppCompatActivity
             gSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
             {
                 @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+                public void onItemSelected(AdapterView<?> parent, View view, int position,
+                                           long id)
                 {
-                    /* Process the current state */
+                            /* Process the current state */
                     Set<Shelter> copy = new HashSet<>(manager.getShelters());
                     shelterList.clear();
 
-                    /* Intersect the results */
+                            /* Intersect the results */
                     Set<Shelter> all = Toolkit.intersect(nameSet(copy, nameBar),
                             ageSet(copy, ageSpinner), genderSet(copy, gSpinner));
 
@@ -127,13 +159,12 @@ public class ListActivity extends AppCompatActivity
             ageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
             {
                 @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+                public void onItemSelected(AdapterView<?> parent, View view, int position,
+                                           long id)
                 {
-                    /* Process the current state */
                     Set<Shelter> copy = new HashSet<>(manager.getShelters());
                     shelterList.clear();
 
-                    /* Intersect the results */
                     Set<Shelter> all = Toolkit.intersect(nameSet(copy, nameBar),
                             ageSet(copy, ageSpinner), genderSet(copy, gSpinner));
 
@@ -150,9 +181,11 @@ public class ListActivity extends AppCompatActivity
         }
 
         nameBar.addTextChangedListener(new TextWatcher() {
-
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -160,11 +193,9 @@ public class ListActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable editable)
             {
-                /* Process the entered words */
                 Set<Shelter> copy = new HashSet<>(manager.getShelters());
                 shelterList.clear();
 
-                /* Intersect the results */
                 Set<Shelter> result = Toolkit.intersect(nameSet(copy, nameBar),
                         ageSet(copy, ageSpinner), genderSet(copy, gSpinner));
 
@@ -172,6 +203,25 @@ public class ListActivity extends AppCompatActivity
                 recyclerView.getAdapter().notifyDataSetChanged();
             }
         });
+    }
+
+    /* Handle the setup */
+    private void waitOnLoad()
+    {
+        while (manager.getShelters().isEmpty())
+            ;
+
+        runOnUiThread(this::doSetup);
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener(task -> {});
     }
 
     public class SimpleRecyclerViewAdapter extends RecyclerView.Adapter<SimpleRecyclerViewAdapter.ViewHolder>

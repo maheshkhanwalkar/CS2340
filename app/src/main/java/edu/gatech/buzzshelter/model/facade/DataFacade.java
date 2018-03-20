@@ -1,7 +1,5 @@
 package edu.gatech.buzzshelter.model.facade;
 
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -17,11 +15,12 @@ public class DataFacade
     {
         return ourInstance;
     }
+
     private DataFacade() {}
 
-    public void parseShelter(InputStream stream)
+    public void setup()
     {
-         manager.parseShelter(stream);
+        manager.setup();
     }
 
     public Set<Shelter> matchName(String name)

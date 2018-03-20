@@ -51,7 +51,8 @@ public class ShelterActivity extends AppCompatActivity {
         /* Set the values appropriately */
         toolbar.setTitle(s.getName());
         restrictions.setText(s.getRestrict());
-        capacity.setText(s.getCapacity());
+        capacity.setText(" ");
+        //capacity.setText(s.getCapacity());
         address.setText(s.getAddress());
         notes.setText(s.getNotes());
         phone.setText(String.format("  %s", s.getPhone()));

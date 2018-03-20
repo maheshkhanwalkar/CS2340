@@ -1,25 +1,26 @@
 package edu.gatech.buzzshelter.model.control;
 
-import java.io.InputStream;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import edu.gatech.buzzshelter.model.db.Database;
-import edu.gatech.buzzshelter.model.db.KVPair;
-import edu.gatech.buzzshelter.model.db.types.CsvDB;
+import edu.gatech.buzzshelter.model.db.types.FirebaseDB;
 import edu.gatech.buzzshelter.model.user.Shelter;
 
 public class ShelterManager
 {
     private Database<Shelter> shelters;
 
-    /* Parse shelter information from CSV */
-    public void parseShelter(InputStream stream)
+    /* Load shelter information  */
+    public void setup()
     {
-        shelters = new CsvDB<>(Shelter.getEncoder(), stream);
+        /* Don't do anything */
+        if(shelters != null)
+            return;
+
+        shelters = new FirebaseDB<>(Shelter.class);
     }
 
     public Set<Shelter> matchName(String name)

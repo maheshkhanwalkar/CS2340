@@ -1,14 +1,67 @@
 package edu.gatech.buzzshelter.model.user;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.gatech.buzzshelter.model.db.Encoder;
 
-public class Shelter
+public class Shelter implements Serializable
 {
     /* Shelter information */
     private int key;
-    private String name, restrict, capacity;
+    private String name, restrict;
+
+    private List<Capacity> capacity;
+
     private double latitude, longitude;
     private String address, notes, phone;
+
+    /* Capacity information */
+    public static class Capacity implements Serializable
+    {
+        private String category;
+        private int capacity, available;
+
+        public Capacity()
+        {
+            this.category = "Beds";
+            this.capacity = -1;
+            this.available = capacity;
+        }
+
+        public Capacity(String category, int capacity)
+        {
+            this.category = category;
+            this.capacity = capacity;
+            this.available = capacity;
+        }
+
+        public String getCategory()
+        {
+            return category;
+        }
+
+        public int getCapacity()
+        {
+            return capacity;
+        }
+
+        public int getAvailable()
+        {
+            return available;
+        }
+
+        public boolean reserve(int amt)
+        {
+            /* Range check */
+            if(amt >= available)
+                return false;
+
+            available -= amt;
+            return true;
+        }
+    }
 
     /* Encoder for the Shelter */
     private static Encoder<Shelter> encoder = new Encoder<Shelter>()
@@ -20,7 +73,7 @@ public class Shelter
 
             raw[0] = Integer.toString(src.getKey());
             raw[1] = src.getName();
-            raw[2] = src.getCapacity();
+            raw[2] = src.getCapacity().toString(); //FIXME: This doesn't work (obviously)
             raw[3] = src.getRestrict();
             raw[4] = Double.toString(src.getLongitude());
             raw[5] = Double.toString(src.getLatitude());
@@ -36,7 +89,46 @@ public class Shelter
         {
             int key = Integer.parseInt(raw[0]);
             String name = raw[1];
-            String capacity = raw[2];
+            String rCap = raw[2];
+
+            List<Capacity> capacity = new ArrayList<>();
+
+            if(rCap.equals(""))
+            {
+                /* Default configuration */
+                capacity.add(new Capacity("Beds", -1));
+            }
+            else
+            {
+                String[] multiple = rCap.split(",");
+                //capacity = new Capacity[multiple.length];
+
+                for(int i = 0; i < multiple.length; i++)
+                {
+                    String current = multiple[i];
+                    int pos = 0;
+
+                    /* Find how long the capacity it is */
+                    while(pos < current.length() &&
+                            Character.isDigit(current.charAt(pos)))
+                    {
+                        pos++;
+                    }
+
+                    String sub = current.substring(0, pos);
+                    int actual = Integer.parseInt(sub);
+
+                    String type;
+
+                    if(pos == current.length())
+                        type = "Beds";
+                    else
+                        type = current.substring(pos + 1, current.length());
+
+                    capacity.add(new Capacity(type, actual));
+                }
+            }
+
             String restrict = raw[3];
             double longitude = Double.parseDouble(raw[4]);
             double latitude = Double.parseDouble(raw[5]);
@@ -55,8 +147,12 @@ public class Shelter
         }
     };
 
+    public Shelter() {
+        this.capacity = new ArrayList<>();
+    }
+
     /* Construct Shelter object */
-    public Shelter(int key, String name, String capacity, String restrict,
+    public Shelter(int key, String name, List<Capacity> capacity, String restrict,
          double longitude, double latitude, String address, String notes, String phone)
     {
         this.key = key;
@@ -134,7 +230,7 @@ public class Shelter
         return key;
     }
 
-    public String getCapacity()
+    public List<Capacity> getCapacity()
     {
         return capacity;
     }

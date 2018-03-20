@@ -24,7 +24,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@mipmap/ic_launcher"
+        android:contentDescription="@string/android_logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +39,7 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Restrictions"
+            android:text="@string/restrictions"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -46,13 +47,13 @@
             android:id="@+id/restrictions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="" />
 
         <TextView
             android:id="@+id/textView15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Capacity"
+            android:text="@string/capacity"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -60,13 +61,13 @@
             android:id="@+id/capacity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="" />
 
         <TextView
             android:id="@+id/textView17"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Address"
+            android:text="@string/address"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -74,13 +75,13 @@
             android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="" />
 
         <TextView
             android:id="@+id/textView19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Special notes"
+            android:text="@string/special_notes"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -88,13 +89,13 @@
             android:id="@+id/notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="" />
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Phone number"
+            android:text="@string/phone_number"
             android:textSize="18sp"
             android:textStyle="bold" />
 
