@@ -31,7 +31,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/shelterList"
         android:layout_marginTop="12dp"
-        android:text="Search Criteria"
+        android:text="@string/search_criteria"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <TextView
@@ -42,9 +42,10 @@
         android:layout_alignBottom="@+id/searchBar"
         android:layout_alignStart="@+id/textView2"
         android:layout_marginStart="9dp"
-        android:text="Shelter Name:"
+        android:text="@string/shelter_list"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:labelFor="@id/searchBar"/>
 
     <EditText
         android:id="@+id/searchBar"
@@ -64,7 +65,7 @@
         android:layout_alignStart="@+id/textView3"
         android:layout_below="@+id/searchBar"
         android:layout_marginTop="11dp"
-        android:text="Gender"
+        android:text="@string/gender"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="18sp" />
 
@@ -83,7 +84,7 @@
         android:layout_alignStart="@+id/textView4"
         android:layout_below="@+id/textView4"
         android:layout_marginTop="17dp"
-        android:text="Age:"
+        android:text="@string/age_range"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="18sp" />
 

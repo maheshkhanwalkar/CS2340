@@ -29,6 +29,7 @@ public class ShelterActivity extends AppCompatActivity {
 
         TextView restrictions = findViewById(R.id.restrictions);
         TextView capacity = findViewById(R.id.capacity);
+        TextView available = findViewById(R.id.available);
         TextView address = findViewById(R.id.address);
         TextView notes = findViewById(R.id.notes);
         Button phone = findViewById(R.id.phone);
@@ -54,6 +55,7 @@ public class ShelterActivity extends AppCompatActivity {
         restrictions.setText(s.getRestrict());
 
         List<Shelter.Capacity> all = s.getCapacity();
+
         StringBuilder line = new StringBuilder();
 
         for(int i = 0; i < all.size(); i++)
@@ -62,9 +64,9 @@ public class ShelterActivity extends AppCompatActivity {
 
             if(item.getCapacity() != -1)
             {
-                String avail = Integer.toString(item.getCapacity());
+                String cap = Integer.toString(item.getCapacity());
 
-                line.append(avail);
+                line.append(cap);
                 line.append(" ");
                 line.append(item.getCategory());
 
@@ -79,6 +81,31 @@ public class ShelterActivity extends AppCompatActivity {
         }
 
         capacity.setText(line.toString());
+        line.setLength(0);
+
+        for(int i = 0; i < all.size(); i++)
+        {
+            Shelter.Capacity item = all.get(i);
+
+            if(item.getAvailable() != -1)
+            {
+                String cap = Integer.toString(item.getCapacity());
+
+                line.append(cap);
+                line.append(" ");
+                line.append(item.getCategory());
+
+                /* Add comma, if there are more entries */
+                if (i + 1 != all.size())
+                    line.append(", ");
+            }
+            else
+            {
+                line.append("Unknown (?)");
+            }
+        }
+
+        available.setText(line.toString());
 
         address.setText(s.getAddress());
         notes.setText(s.getNotes());

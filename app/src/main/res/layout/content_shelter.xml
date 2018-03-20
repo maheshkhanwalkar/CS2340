@@ -46,8 +46,7 @@
         <TextView
             android:id="@+id/restrictions"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textView15"
@@ -60,8 +59,20 @@
         <TextView
             android:id="@+id/capacity"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text="@string/available"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/available"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textView17"
@@ -74,8 +85,7 @@
         <TextView
             android:id="@+id/address"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textView19"
@@ -88,8 +98,7 @@
         <TextView
             android:id="@+id/notes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textView12"
@@ -105,7 +114,6 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_phone_black_24px"
             android:gravity="start|center_vertical"
-            android:text=""
             android:background="@android:color/transparent" />
 
     </LinearLayout>
