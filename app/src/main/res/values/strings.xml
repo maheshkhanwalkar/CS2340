@@ -28,6 +28,7 @@
     <string name="android_logo">Android Logo</string>
     <string name="available">Available</string>
     <string name="search_criteria">Search Criteria</string>
+    <string name="reserve_space">Reserve Space</string>
     <string-array name="gender_array">
         <item>Any</item>
         <item>Men</item>
@@ -39,4 +40,8 @@
         <item>Families with newborns</item>
         <item>Young Adults</item>
     </string-array>
+    <string name="title_activity_reserve">Reserve Space</string>
+    <string name="reserve">Reserve</string>
+    <string name="type">Type:</string>
+    <string name="amount">Amount:</string>
 </resources>

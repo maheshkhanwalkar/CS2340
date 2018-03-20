@@ -23,6 +23,16 @@ public class DataFacade
         manager.setup();
     }
 
+    public Shelter get(String name)
+    {
+        return manager.get(name);
+    }
+
+    public boolean reserve(String name, String type, int amt)
+    {
+        return manager.reserve(name, type, amt);
+    }
+
     public Set<Shelter> matchName(String name)
     {
         return manager.matchName(name);

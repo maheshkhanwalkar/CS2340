@@ -23,6 +23,22 @@ public class ShelterManager
         shelters = new FirebaseDB<>(Shelter.class);
     }
 
+    public Shelter get(String key)
+    {
+        return shelters.get(key);
+    }
+
+    public boolean reserve(String name, String type, int amt)
+    {
+        boolean result = shelters.get(name).reserve(type, amt);
+        return result && put(name, shelters.get(name));
+    }
+
+    public boolean put(String key, Shelter value)
+    {
+        return shelters.put(key, value);
+    }
+
     public Set<Shelter> matchName(String name)
     {
         return matcher(x -> x.matchName(name));

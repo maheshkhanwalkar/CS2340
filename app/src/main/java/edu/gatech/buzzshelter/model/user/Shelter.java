@@ -3,6 +3,7 @@ package edu.gatech.buzzshelter.model.user;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import edu.gatech.buzzshelter.model.db.Encoder;
 
@@ -52,10 +53,10 @@ public class Shelter implements Serializable
             return available;
         }
 
-        public boolean reserve(int amt)
+        private boolean reserve(int amt)
         {
             /* Range check */
-            if(amt >= available)
+            if(amt > available)
                 return false;
 
             available -= amt;
@@ -169,6 +170,15 @@ public class Shelter implements Serializable
     public static Encoder<Shelter> getEncoder()
     {
         return encoder;
+    }
+
+    public boolean reserve(String type, int amt)
+    {
+        Shelter.Capacity match = capacity.stream()
+                .filter(x -> x.getCategory().equals(type))
+                .collect(Collectors.toList()).get(0);
+
+        return match.reserve(amt);
     }
 
     public boolean matchName(String name)

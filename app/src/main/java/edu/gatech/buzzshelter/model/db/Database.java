@@ -9,7 +9,7 @@ public abstract class Database<V>
 {
     /**
      * Put (key, value) into the database
-     * @param key - key to insert (does not overwrite!)
+     * @param key - key to insert
      * @param value - value associated with key
      * @return true, if put was successful
      */

@@ -36,7 +36,6 @@ import edu.gatech.buzzshelter.model.user.Shelter;
 
 public class ListActivity extends AppCompatActivity
 {
-    public static final String ARG_SHELTER_ID = "shelter_id";
     public final DataFacade manager = DataFacade.getInstance();
 
     private List<Shelter> shelterList = new ArrayList<>();
@@ -253,7 +252,7 @@ public class ListActivity extends AppCompatActivity
 
             holder.mView.setOnClickListener(v -> {
                 Intent intent = new Intent(v.getContext(), ShelterActivity.class);
-                intent.putExtra(ARG_SHELTER_ID, holder.mShelter.getKey());
+                intent.putExtra(ShelterActivity.ARG_SHELTER_ID, holder.mShelter.getKey());
 
                 /* Display detailed view */
                 startActivity(intent);

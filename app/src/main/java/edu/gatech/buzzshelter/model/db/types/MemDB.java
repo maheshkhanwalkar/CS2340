@@ -21,10 +21,6 @@ public class MemDB<V> extends Database<V>
     @Override
     public boolean put(String key, V value)
     {
-        /* Already exists */
-        if(db.containsKey(key))
-            return false;
-
         db.put(key, value);
         return true;
     }
