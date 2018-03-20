@@ -83,6 +83,7 @@ public class ListActivity extends AppCompatActivity
 
         manager.setup();
 
+        /* Do we need to wait on data? */
         if(manager.getShelters().isEmpty())
         {
             progress = new ProgressDialog(this);
@@ -129,11 +130,11 @@ public class ListActivity extends AppCompatActivity
                 public void onItemSelected(AdapterView<?> parent, View view, int position,
                                            long id)
                 {
-                            /* Process the current state */
+                    /* Process the current state */
                     Set<Shelter> copy = new HashSet<>(manager.getShelters());
                     shelterList.clear();
 
-                            /* Intersect the results */
+                    /* Intersect the results */
                     Set<Shelter> all = Toolkit.intersect(nameSet(copy, nameBar),
                             ageSet(copy, ageSpinner), genderSet(copy, gSpinner));
 
@@ -205,7 +206,7 @@ public class ListActivity extends AppCompatActivity
         });
     }
 
-    /* Handle the setup */
+    /* Wait until the data has come in */
     private void waitOnLoad()
     {
         while (manager.getShelters().isEmpty())
@@ -224,7 +225,8 @@ public class ListActivity extends AppCompatActivity
                 .addOnCompleteListener(task -> {});
     }
 
-    public class SimpleRecyclerViewAdapter extends RecyclerView.Adapter<SimpleRecyclerViewAdapter.ViewHolder>
+    public class SimpleRecyclerViewAdapter extends
+            RecyclerView.Adapter<SimpleRecyclerViewAdapter.ViewHolder>
     {
         private final List<Shelter> mShelters;
 

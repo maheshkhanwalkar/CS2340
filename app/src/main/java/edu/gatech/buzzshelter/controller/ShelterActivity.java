@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.List;
 import java.util.Optional;
 
 import edu.gatech.buzzshelter.R;
@@ -51,8 +52,34 @@ public class ShelterActivity extends AppCompatActivity {
         /* Set the values appropriately */
         toolbar.setTitle(s.getName());
         restrictions.setText(s.getRestrict());
-        capacity.setText(" ");
-        //capacity.setText(s.getCapacity());
+
+        List<Shelter.Capacity> all = s.getCapacity();
+        StringBuilder line = new StringBuilder();
+
+        for(int i = 0; i < all.size(); i++)
+        {
+            Shelter.Capacity item = all.get(i);
+
+            if(item.getCapacity() != -1)
+            {
+                String avail = Integer.toString(item.getCapacity());
+
+                line.append(avail);
+                line.append(" ");
+                line.append(item.getCategory());
+
+                /* Add comma, if there are more entries */
+                if (i + 1 != all.size())
+                    line.append(", ");
+            }
+            else
+            {
+                line.append("Unknown (?)");
+            }
+        }
+
+        capacity.setText(line.toString());
+
         address.setText(s.getAddress());
         notes.setText(s.getNotes());
         phone.setText(String.format("  %s", s.getPhone()));
