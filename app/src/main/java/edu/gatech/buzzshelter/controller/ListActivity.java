@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 import edu.gatech.buzzshelter.R;
+import edu.gatech.buzzshelter.model.control.DataServiceFacade;
 import edu.gatech.buzzshelter.model.db.util.Toolkit;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
 import edu.gatech.buzzshelter.model.data.Shelter;
@@ -31,6 +33,7 @@ import edu.gatech.buzzshelter.model.data.Shelter;
 public class ListActivity extends AppCompatActivity
 {
     public final DataFacade manager = DataFacade.getInstance();
+    public final DataServiceFacade dataService = DataServiceFacade.getInstance();
 
     private List<Shelter> shelterList = new ArrayList<>();
     private ProgressDialog progress;
@@ -105,9 +108,11 @@ public class ListActivity extends AppCompatActivity
         EditText nameBar = findViewById(R.id.searchBar);
         Spinner gSpinner = findViewById(R.id.gSpinner);
         Spinner ageSpinner = findViewById(R.id.ageSpinner);
+        Button map = findViewById(R.id.mapButton);
 
         RecyclerView recyclerView = findViewById(R.id.shelterList);
         recyclerView.setAdapter(new SimpleRecyclerViewAdapter(shelterList));
+        dataService.resetFilter();
 
         {
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -133,12 +138,16 @@ public class ListActivity extends AppCompatActivity
 
                     shelterList.addAll(all);
                     recyclerView.getAdapter().notifyDataSetChanged();
+
+                    // probably not the way to do this but oh well for now
+                    String gender = gSpinner.getSelectedItem().toString();
+                    dataService.setGenderFilter(gender);
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent)
                 {
-
+                    dataService.setGenderFilter("Any");
                 }
             });
         }
@@ -164,12 +173,16 @@ public class ListActivity extends AppCompatActivity
 
                     shelterList.addAll(all);
                     recyclerView.getAdapter().notifyDataSetChanged();
+
+                    String age = ageSpinner.getSelectedItem().toString();
+                    dataService.setAgeFilter(age);
+
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent)
                 {
-
+                    dataService.setAgeFilter("Any");
                 }
             });
         }
@@ -195,7 +208,16 @@ public class ListActivity extends AppCompatActivity
 
                 shelterList.addAll(result);
                 recyclerView.getAdapter().notifyDataSetChanged();
+
+                String name = nameBar.getText().toString().toLowerCase();
+                dataService.setNameFilter(name);
             }
+        });
+
+        /* Load map page */
+        map.setOnClickListener(v -> {
+            Intent landing = new Intent(this, MapsActivity.class);
+            startActivity(landing);
         });
     }
 

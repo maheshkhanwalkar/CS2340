@@ -2,6 +2,7 @@ package edu.gatech.buzzshelter.controller;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -49,8 +50,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //get the data to display
         List<DataElement> dataList = dataService.getData();
 
+
+
         //iterate through the list and add a pin for each element in the model
         for (DataElement de : dataList) {
+
             LatLng loc = new LatLng(de.getLatitude(), de.getLongitude());
             mMap.addMarker(new MarkerOptions().position(loc).title(de.getName()).snippet(de.getDescription()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));

@@ -17,9 +17,25 @@ public class DataServiceFacade {
         dataManager = new DataManager();
     }
 
-
-
     public List<DataElement> getData() {
         return dataManager.getData();
+    }
+
+    public void setNameFilter(String name) {
+        dataManager.setNameFilter(name);
+    }
+
+    public void setGenderFilter(String gender) {
+        dataManager.setGenderFilter(gender);
+    }
+
+    public void setAgeFilter(String age) {
+        dataManager.setAgeFilter(age);
+    }
+
+    public void resetFilter() {
+        dataManager.setNameFilter("");
+        dataManager.setGenderFilter("Any");
+        dataManager.setAgeFilter("Any");
     }
 }
