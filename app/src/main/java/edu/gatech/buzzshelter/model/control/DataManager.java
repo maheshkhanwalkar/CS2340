@@ -1,12 +1,12 @@
 package edu.gatech.buzzshelter.model.control;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import edu.gatech.buzzshelter.model.data.DataElement;
+import edu.gatech.buzzshelter.model.data.Location;
 import edu.gatech.buzzshelter.model.db.util.Toolkit;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
 import edu.gatech.buzzshelter.model.data.Shelter;

@@ -17,15 +17,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.firebase.ui.auth.AuthUI;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import edu.gatech.buzzshelter.R;
-import edu.gatech.buzzshelter.model.control.DataServiceFacade;
+import edu.gatech.buzzshelter.model.facade.DataServiceFacade;
 import edu.gatech.buzzshelter.model.db.util.Toolkit;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
 import edu.gatech.buzzshelter.model.data.Shelter;

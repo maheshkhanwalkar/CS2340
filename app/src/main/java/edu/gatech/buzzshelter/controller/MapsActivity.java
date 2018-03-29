@@ -1,8 +1,7 @@
 package edu.gatech.buzzshelter.controller;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -11,20 +10,20 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import edu.gatech.buzzshelter.R;
-import edu.gatech.buzzshelter.model.control.DataServiceFacade;
-import edu.gatech.buzzshelter.model.control.DataElement;
-
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import edu.gatech.buzzshelter.R;
+import edu.gatech.buzzshelter.model.data.DataElement;
+import edu.gatech.buzzshelter.model.facade.DataServiceFacade;
 
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
+{
     private GoogleMap mMap;
-
     DataServiceFacade dataService = DataServiceFacade.getInstance();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -44,16 +43,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap)
+    {
         mMap = googleMap;
 
         //get the data to display
         List<DataElement> dataList = dataService.getData();
 
-
-
         //iterate through the list and add a pin for each element in the model
-        for (DataElement de : dataList) {
+        for (DataElement de : dataList)
+        {
 
             LatLng loc = new LatLng(de.getLatitude(), de.getLongitude());
             mMap.addMarker(new MarkerOptions().position(loc).title(de.getName()).snippet(de.getDescription()));
