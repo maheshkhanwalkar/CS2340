@@ -1,19 +1,19 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">BuzzShelter</string>
     <string name="title_activity_main">Home</string>
     <string name="title_activity_welcome">BuzzShelter</string>
-    <string name="buzzshelter">BuzzShelter</string>
-    <string name="login">Login</string>
-    <string name="register">Register</string>
-    <string name="title_activity_login">Login</string>
-    <string name="username">Username:</string>
-    <string name="password">Password:</string>
+    <string name="buzzshelter" tools:keep="@string/buzzshelter">BuzzShelter</string>
+    <string name="login" tools:keep="@string/login">Login</string>
+    <string name="register" tools:keep="@string/register">Register</string>
+    <string name="title_activity_login" tools:keep="@string/title_activity_login">Login</string>
+    <string name="username" tools:keep="@string/username">Username:</string>
+    <string name="password" tools:keep="@string/password">Password:</string>
     <string name="logout">Logout</string>
-    <string name="title_activity_register">Register</string>
+    <string name="title_activity_register" tools:keep="@string/title_activity_register">Register</string>
     <string name="name">Shelter Name:</string>
-    <string name="retype_pass">Retype Pass:</string>
-    <string name="account">Account:</string>
-    <string name="email">Email:</string>
+    <string name="retype_pass" tools:keep="@string/retype_pass">Retype Pass:</string>
+    <string name="account" tools:keep="@string/account">Account:</string>
+    <string name="email" tools:keep="@string/email">Email:</string>
     <string name="title_activity_list">Shelter List</string>
     <string name="title_activity_shelter">Shelter</string>
     <string name="back">Back</string>
@@ -52,4 +52,5 @@
     <string name="textview">TextView</string>
     <string name="none">None</string>
     <string name="title_activity_maps">Map</string>
+    <string name="show_in_map">Show In Map</string>
 </resources>

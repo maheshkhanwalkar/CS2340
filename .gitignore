@@ -52,3 +52,7 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
+
+# Android Studio debug
+app/src/debug
+

@@ -18,11 +18,11 @@ import edu.gatech.buzzshelter.model.db.KVPair;
 
 public class FirebaseDB<T> extends Database<T>
 {
-    private DatabaseReference ref;
-    private volatile MemDB<T> mem = new MemDB<>();
+    private final DatabaseReference ref;
+    private final MemDB<T> mem = new MemDB<>();
 
     /* Lock for database operations */
-    private Lock lock = new ReentrantLock();
+    private final Lock lock = new ReentrantLock();
 
     /* Should be T.class (hack) */
     public FirebaseDB(String root, Class<T> type)

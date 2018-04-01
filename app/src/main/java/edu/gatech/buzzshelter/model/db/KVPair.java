@@ -7,8 +7,8 @@ package edu.gatech.buzzshelter.model.db;
  */
 public final class KVPair<K, V>
 {
-    private K key;
-    private V value;
+    private final K key;
+    private final V value;
 
     public KVPair(K key, V value)
     {

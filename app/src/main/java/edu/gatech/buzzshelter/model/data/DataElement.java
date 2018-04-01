@@ -2,9 +2,9 @@ package edu.gatech.buzzshelter.model.data;
 
 public class DataElement
 {
-    private String name;
-    private String description;
-    private Location location;
+    private final String name;
+    private final String description;
+    private final Location location;
 
     public DataElement(String name, String description, Location location)
     {

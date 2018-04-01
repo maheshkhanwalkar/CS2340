@@ -2,27 +2,31 @@ package edu.gatech.buzzshelter.model.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import edu.gatech.buzzshelter.model.db.Encoder;
 
 public class Shelter implements Serializable
 {
     /* Shelter information */
     private int key;
-    private String name, restrict;
+    private String name;
+    private String restrict;
 
-    private List<Capacity> capacity;
+    private final List<Capacity> capacity;
 
-    private double latitude, longitude;
-    private String address, notes, phone;
+    private double latitude;
+    private double longitude;
+    private String address;
+    private String notes;
+    private String phone;
 
     /* Capacity information */
     public static class Capacity implements Serializable
     {
-        private String category;
-        private int capacity, available;
+        private final String category;
+        private final int capacity;
+        private int available;
 
         public Capacity()
         {
@@ -31,7 +35,7 @@ public class Shelter implements Serializable
             this.available = capacity;
         }
 
-        public Capacity(String category, int capacity)
+        Capacity(String category, int capacity)
         {
             this.category = category;
             this.capacity = capacity;
@@ -66,97 +70,13 @@ public class Shelter implements Serializable
         private boolean cancel(int amt)
         {
             /* Range check */
-            if(amt + available > capacity)
+            if((amt + available) > capacity)
                 return false;
 
             available += amt;
             return true;
         }
     }
-
-    /* Encoder for the Shelter */
-    private static Encoder<Shelter> encoder = new Encoder<Shelter>()
-    {
-        @Override
-        public String[] decode(Shelter src)
-        {
-            String[] raw = new String[9];
-
-            raw[0] = Integer.toString(src.getKey());
-            raw[1] = src.getName();
-            raw[2] = src.getCapacity().toString(); //FIXME: This doesn't work (obviously)
-            raw[3] = src.getRestrict();
-            raw[4] = Double.toString(src.getLongitude());
-            raw[5] = Double.toString(src.getLatitude());
-            raw[6] = src.getAddress();
-            raw[7] = src.getNotes();
-            raw[8] = src.getPhone();
-
-            return raw;
-        }
-
-        @Override
-        public Shelter encode(String[] raw)
-        {
-            int key = Integer.parseInt(raw[0]);
-            String name = raw[1];
-            String rCap = raw[2];
-
-            List<Capacity> capacity = new ArrayList<>();
-
-            if(rCap.equals(""))
-            {
-                /* Default configuration */
-                capacity.add(new Capacity("Beds", -1));
-            }
-            else
-            {
-                String[] multiple = rCap.split(",");
-                //capacity = new Capacity[multiple.length];
-
-                for(int i = 0; i < multiple.length; i++)
-                {
-                    String current = multiple[i];
-                    int pos = 0;
-
-                    /* Find how long the capacity it is */
-                    while(pos < current.length() &&
-                            Character.isDigit(current.charAt(pos)))
-                    {
-                        pos++;
-                    }
-
-                    String sub = current.substring(0, pos);
-                    int actual = Integer.parseInt(sub);
-
-                    String type;
-
-                    if(pos == current.length())
-                        type = "Beds";
-                    else
-                        type = current.substring(pos + 1, current.length());
-
-                    capacity.add(new Capacity(type, actual));
-                }
-            }
-
-            String restrict = raw[3];
-            double longitude = Double.parseDouble(raw[4]);
-            double latitude = Double.parseDouble(raw[5]);
-            String address = raw[6];
-            String notes = raw[7];
-            String phone = raw[8];
-
-            return new Shelter(key, name, capacity, restrict,
-                    longitude, latitude, address, notes, phone);
-        }
-
-        @Override
-        public String getKey(Shelter src)
-        {
-            return src.getName();
-        }
-    };
 
     public Shelter() {
         this.capacity = new ArrayList<>();
@@ -177,11 +97,6 @@ public class Shelter implements Serializable
         this.phone = phone;
     }
 
-    public static Encoder<Shelter> getEncoder()
-    {
-        return encoder;
-    }
-
     public boolean reserve(String type, int amt)
     {
         Shelter.Capacity match = capacity.stream()
@@ -200,13 +115,11 @@ public class Shelter implements Serializable
         return match.cancel(amt);
     }
 
-    public boolean matchName(String name)
+    public boolean matchName(CharSequence name)
     {
-        if(name.length() > this.name.length())
-            return false;
+        return (name.length() <= this.name.length()) &&
+                this.name.substring(0, name.length()).toLowerCase().contentEquals(name);
 
-        return this.name.substring(0, name.length())
-                .toLowerCase().equals(name);
     }
 
     public boolean matchGender(String gender)
@@ -261,7 +174,7 @@ public class Shelter implements Serializable
 
     public List<Capacity> getCapacity()
     {
-        return capacity;
+        return Collections.unmodifiableList(capacity);
     }
 
     public String getName()
@@ -269,7 +182,7 @@ public class Shelter implements Serializable
         return name;
     }
 
-    public String getRestrict()
+    public CharSequence getRestrict()
     {
         return restrict;
     }
@@ -284,7 +197,7 @@ public class Shelter implements Serializable
         return longitude;
     }
 
-    public String getAddress()
+    public CharSequence getAddress()
     {
         return address;
     }

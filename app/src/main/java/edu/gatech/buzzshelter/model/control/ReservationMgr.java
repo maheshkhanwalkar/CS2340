@@ -1,6 +1,5 @@
 package edu.gatech.buzzshelter.model.control;
 
-import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -44,10 +43,10 @@ public class ReservationMgr
         return reservations.get(uid);
     }
 
-    public boolean cancel()
+    public void cancel()
     {
         String uid = getUid();
-        return reservations.remove(uid);
+        reservations.remove(uid);
     }
 
     public boolean put(String shelterName, String type, int amt)

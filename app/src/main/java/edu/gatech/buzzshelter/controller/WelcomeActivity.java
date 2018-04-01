@@ -28,7 +28,6 @@ public class WelcomeActivity extends AppCompatActivity
                 .setIsSmartLockEnabled(false, true)
                 .setAvailableProviders(Arrays.asList(
                         new AuthUI.IdpConfig.EmailBuilder().build(),
-                        /* FIXME: Google OAuth has not yet been set up */
                         new AuthUI.IdpConfig.GoogleBuilder().build()
                 ));
 

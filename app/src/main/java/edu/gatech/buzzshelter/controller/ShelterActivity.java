@@ -58,7 +58,7 @@ public class ShelterActivity extends AppCompatActivity {
                 line.append(item.getCategory());
 
                 /* Add comma, if there are more entries */
-                if (i + 1 != all.size())
+                if ((i + 1) != all.size())
                     line.append(", ");
             }
             else
@@ -88,7 +88,7 @@ public class ShelterActivity extends AppCompatActivity {
                 line.append(item.getCategory());
 
                 /* Add comma, if there are more entries */
-                if (i + 1 != all.size())
+                if ((i + 1) != all.size())
                     line.append(", ");
             }
             else

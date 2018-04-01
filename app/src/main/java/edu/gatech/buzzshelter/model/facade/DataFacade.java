@@ -8,12 +8,12 @@ import edu.gatech.buzzshelter.model.control.ShelterMgr;
 import edu.gatech.buzzshelter.model.data.Reservation;
 import edu.gatech.buzzshelter.model.data.Shelter;
 
-public class DataFacade
+public final class DataFacade
 {
     private static final DataFacade ourInstance = new DataFacade();
 
-    private ShelterMgr sMgr = new ShelterMgr();
-    private ReservationMgr rMgr = new ReservationMgr();
+    private final ShelterMgr sMgr = new ShelterMgr();
+    private final ReservationMgr rMgr = new ReservationMgr();
 
     public static DataFacade getInstance()
     {
@@ -54,17 +54,17 @@ public class DataFacade
                 && rMgr.put(name, type, amt);
     }
 
-    public boolean cancel(String name, String type, int amt)
+    public void cancel(String name, String type, int amt)
     {
         /* Nothing to cancel */
         if(rMgr.get() == null)
-            return false;
+            return;
 
         rMgr.cancel();
-        return sMgr.cancel(name, type, amt);
+        sMgr.cancel(name, type, amt);
     }
 
-    public Set<Shelter> matchName(String name)
+    public Set<Shelter> matchName(CharSequence name)
     {
         return sMgr.matchName(name);
     }

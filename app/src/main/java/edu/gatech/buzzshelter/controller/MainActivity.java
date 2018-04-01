@@ -9,7 +9,6 @@ import android.widget.Button;
 
 import com.firebase.ui.auth.AuthUI;
 import edu.gatech.buzzshelter.R;
-import edu.gatech.buzzshelter.model.data.Reservation;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
 
 public class MainActivity extends AppCompatActivity
@@ -51,16 +50,14 @@ public class MainActivity extends AppCompatActivity
         }
 
         /* Logout implementation */
-        logout.setOnClickListener(v -> {
-            AuthUI.getInstance()
-                    .signOut(this)
-                    .addOnCompleteListener(task -> {
-                        Intent landing = new Intent(this, WelcomeActivity.class);
-                        startActivity(landing);
+        logout.setOnClickListener(v -> AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener(task -> {
+                    Intent landing = new Intent(this, WelcomeActivity.class);
+                    startActivity(landing);
 
-                        finish();
-                    });
-        });
+                    finish();
+                }));
 
         /* Load shelter page */
         read.setOnClickListener(v -> {

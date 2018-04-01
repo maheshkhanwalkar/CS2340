@@ -2,8 +2,8 @@ package edu.gatech.buzzshelter.model.data;
 
 public class Location
 {
-    private double latitude;
-    private double longitude;
+    private final double latitude;
+    private final double longitude;
 
     public Location(double lat, double lon)
     {

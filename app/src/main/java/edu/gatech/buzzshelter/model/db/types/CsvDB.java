@@ -16,11 +16,11 @@ import edu.gatech.buzzshelter.model.db.KVPair;
 
 public class CsvDB<V> extends Database<V>
 {
-    private Encoder<V> encoder;
-    private InputStream source;
+    private final Encoder<V> encoder;
+    private final InputStream source;
 
     /* In-memory copy */
-    private Database<V> mem = new MemDB<>();
+    private final Database<V> mem = new MemDB<>();
 
     public CsvDB(Encoder<V> encoder, InputStream source)
     {

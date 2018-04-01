@@ -34,10 +34,13 @@ public class ShelterMgr
         return result && put(name, shelters.get(name));
     }
 
-    public boolean cancel(String name, String type, int amt)
+    public void cancel(String name, String type, int amt)
     {
         boolean result = shelters.get(name).cancel(type, amt);
-        return result && put(name, shelters.get(name));
+        if (result)
+        {
+            put(name, shelters.get(name));
+        }
     }
 
     /* Add {key, value} to the database */
@@ -46,7 +49,7 @@ public class ShelterMgr
         return shelters.put(key, value);
     }
 
-    public Set<Shelter> matchName(String name)
+    public Set<Shelter> matchName(CharSequence name)
     {
         return matcher(x -> x.matchName(name));
     }

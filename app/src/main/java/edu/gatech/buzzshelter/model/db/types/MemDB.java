@@ -16,7 +16,7 @@ import edu.gatech.buzzshelter.model.db.KVPair;
  */
 public class MemDB<V> extends Database<V>
 {
-    private HashMap<String, V> db = new HashMap<>();
+    private final Map<String, V> db = new HashMap<>();
 
     @Override
     public boolean put(String key, V value)

@@ -30,8 +30,8 @@ import edu.gatech.buzzshelter.model.data.Shelter;
 
 public class ListActivity extends AppCompatActivity
 {
-    public final DataFacade manager = DataFacade.getInstance();
-    public final DataServiceFacade dataService = DataServiceFacade.getInstance();
+    private final DataFacade manager = DataFacade.getInstance();
+    private final DataServiceFacade dataService = DataServiceFacade.getInstance();
 
     private List<Shelter> shelterList = new ArrayList<>();
     private ProgressDialog progress;
@@ -41,7 +41,7 @@ public class ListActivity extends AppCompatActivity
         /* Default set */
         String age = ageSpinner.getSelectedItem().toString();
 
-        if(age.equals("Any"))
+        if("Any".equals(age))
             return def;
 
         return manager.matchAge(age);
@@ -52,7 +52,7 @@ public class ListActivity extends AppCompatActivity
         /* Default set */
         String gender = gSpinner.getSelectedItem().toString();
 
-        if(gender.equals("Any"))
+        if("Any".equals(gender))
             return def;
 
         return manager.matchGender(gender);
@@ -63,7 +63,7 @@ public class ListActivity extends AppCompatActivity
         String name = nameBar.getText().toString().toLowerCase();
 
         /* Default set */
-        if(name.equals(""))
+        if("".equals(name))
             return def;
 
         return manager.matchName(name);
@@ -96,7 +96,7 @@ public class ListActivity extends AppCompatActivity
         }
     }
 
-    public void doSetup()
+    private void doSetup()
     {
         if(progress != null)
             progress.dismiss();

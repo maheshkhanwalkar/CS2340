@@ -16,7 +16,7 @@
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        app:layoutManager="LinearLayoutManager"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.481"
@@ -102,7 +102,6 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/searchBar"
         android:layout_alignParentTop="true"
-        android:text="Show In Map" />
-
+        android:text="@string/show_in_map" />
 
 </RelativeLayout>

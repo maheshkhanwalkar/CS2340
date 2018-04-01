@@ -18,8 +18,7 @@ import edu.gatech.buzzshelter.model.facade.DataServiceFacade;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 {
-    private GoogleMap mMap;
-    DataServiceFacade dataService = DataServiceFacade.getInstance();
+    private final DataServiceFacade dataService = DataServiceFacade.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,7 +44,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap)
     {
-        mMap = googleMap;
 
         //get the data to display
         List<DataElement> dataList = dataService.getData();
@@ -55,8 +53,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         {
 
             LatLng loc = new LatLng(de.getLatitude(), de.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(loc).title(de.getName()).snippet(de.getDescription()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+            googleMap.addMarker(new MarkerOptions().position(loc).title(de.getName())
+                    .snippet(de.getDescription()));
+
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
     }
 }
