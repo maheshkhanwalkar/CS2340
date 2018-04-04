@@ -23,7 +23,6 @@ public class TestShelterMatchAge {
 
     @Before
     public void setup() {
-        MOCK_CAPACITY.add(new Shelter.Capacity("bed", 20));
         mock_shelter = new Shelter(2, "Name", MOCK_CAPACITY, "Woman/Children",
                 1.0, 1.0, "Address", "Note", "404-888-8888");
     }
