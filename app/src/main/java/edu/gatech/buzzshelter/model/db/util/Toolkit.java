@@ -34,6 +34,9 @@ public final class Toolkit
     public static <T> Set<T> intersect(Set<T>... sets)
     {
         /* Handle special cases */
+        if(sets == null)
+            return null;
+
         if(sets.length == 0)
             return new HashSet<>();
 

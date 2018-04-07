@@ -177,7 +177,8 @@ public class Shelter implements Serializable
     public boolean matchName(CharSequence name)
     {
         return (name.length() <= this.name.length()) &&
-                this.name.substring(0, name.length()).toLowerCase().contentEquals(name);
+                this.name.substring(0, name.length()).toLowerCase()
+                        .contentEquals(name.toString().toLowerCase());
 
     }
 
