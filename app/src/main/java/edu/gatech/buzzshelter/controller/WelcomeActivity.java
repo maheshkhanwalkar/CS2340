@@ -9,6 +9,9 @@ import com.firebase.ui.auth.AuthUI;
 import java.util.Arrays;
 import edu.gatech.buzzshelter.R;
 
+/**
+ * First activity (welcome screen)
+ */
 public class WelcomeActivity extends AppCompatActivity
 {
     private static final int RC_SIGN_IN = 123;

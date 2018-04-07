@@ -18,6 +18,9 @@ import edu.gatech.buzzshelter.R;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
 import edu.gatech.buzzshelter.model.data.Shelter;
 
+/**
+ * Shelter reservation activity
+ */
 public class ReserveActivity extends AppCompatActivity
 {
     public static final String SHELTER_NAME = "shelter_name";

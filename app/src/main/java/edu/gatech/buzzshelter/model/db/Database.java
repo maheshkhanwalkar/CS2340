@@ -5,6 +5,10 @@ package edu.gatech.buzzshelter.model.db;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Database interface
+ * @param <V> - data type of value
+ */
 public abstract class Database<V>
 {
     /**

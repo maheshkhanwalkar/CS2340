@@ -28,6 +28,9 @@ import edu.gatech.buzzshelter.model.db.util.Toolkit;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
 import edu.gatech.buzzshelter.model.data.Shelter;
 
+/**
+ * Shelter List activity
+ */
 public class ListActivity extends AppCompatActivity
 {
     private final DataFacade manager = DataFacade.getInstance();

@@ -11,6 +11,9 @@ import com.firebase.ui.auth.AuthUI;
 import edu.gatech.buzzshelter.R;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
 
+/**
+ * Main screen activity
+ */
 public class MainActivity extends AppCompatActivity
 {
     private ProgressDialog progress;

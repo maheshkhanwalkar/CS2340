@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Shelter information class
+ */
 public class Shelter implements Serializable
 {
     /* Shelter information */
@@ -28,6 +31,9 @@ public class Shelter implements Serializable
         private final int capacity;
         private int available;
 
+        /**
+         * Initialize a default capacity
+         */
         public Capacity()
         {
             this.category = "Beds";
@@ -42,21 +48,38 @@ public class Shelter implements Serializable
             this.available = capacity;
         }
 
+        /**
+         * Get the category
+         * @return category
+         */
         public String getCategory()
         {
             return category;
         }
 
+        /**
+         * Get the capacity
+         * @return current capacity
+         */
         public int getCapacity()
         {
             return capacity;
         }
 
+        /**
+         * Get the availability
+         * @return current availability
+         */
         public int getAvailable()
         {
             return available;
         }
 
+        /**
+         * Reserve space in the shelter
+         * @param amt - amount to reserve
+         * @return true, if successful
+         */
         private boolean reserve(int amt)
         {
             /* Range check */
@@ -67,6 +90,11 @@ public class Shelter implements Serializable
             return true;
         }
 
+        /**
+         * Cancel a reservation in the shelter
+         * @param amt - amount to release
+         * @return true, if successful
+         */
         private boolean cancel(int amt)
         {
             /* Range check */
@@ -78,11 +106,25 @@ public class Shelter implements Serializable
         }
     }
 
+    /**
+     * Initialize an empty shelter
+     */
     public Shelter() {
         this.capacity = new ArrayList<>();
     }
 
-    /* Construct Shelter object */
+    /**
+     * Initialize a shelter
+     * @param key - shelter key
+     * @param name - shelter name
+     * @param capacity - list of capacity information
+     * @param restrict - restrictions
+     * @param longitude - shelter long
+     * @param latitude - shelter lat
+     * @param address - shelter address
+     * @param notes - additional notes
+     * @param phone - shelter phone #
+     */
     public Shelter(int key, String name, List<Capacity> capacity, String restrict,
          double longitude, double latitude, String address, String notes, String phone)
     {
@@ -97,6 +139,12 @@ public class Shelter implements Serializable
         this.phone = phone;
     }
 
+    /**
+     * Reserve spot(s) in a shelter
+     * @param type - type (beds, apartments, etc.)
+     * @param amt - amt to reserve
+     * @return true, if successful
+     */
     public boolean reserve(String type, int amt)
     {
         Shelter.Capacity match = capacity.stream()
@@ -106,6 +154,12 @@ public class Shelter implements Serializable
         return match.reserve(amt);
     }
 
+    /**
+     * Cancel a reservation
+     * @param type - type (beds, apartments, etc.)
+     * @param amt - amt to reserve
+     * @return true, if successful
+     */
     public boolean cancel(String type, int amt)
     {
         Shelter.Capacity match = capacity.stream()
@@ -115,6 +169,11 @@ public class Shelter implements Serializable
         return match.cancel(amt);
     }
 
+    /**
+     * Match by name
+     * @param name - name to match against
+     * @return true, if there is a match
+     */
     public boolean matchName(CharSequence name)
     {
         return (name.length() <= this.name.length()) &&
@@ -122,6 +181,11 @@ public class Shelter implements Serializable
 
     }
 
+    /**
+     * Match by gender
+     * @param gender - gender to match against
+     * @return true, if there is a match
+     */
     public boolean matchGender(String gender)
     {
         String[] all = restrict.split("/");
@@ -135,6 +199,11 @@ public class Shelter implements Serializable
         return false;
     }
 
+    /**
+     * Match by age
+     * @param age - age to match against
+     * @return true, if there is a match
+     */
     public boolean matchAge(String age)
     {
         String[] all = restrict.split("/");
@@ -166,47 +235,82 @@ public class Shelter implements Serializable
         return this.name.hashCode();
     }
 
-    /* Getters */
+    /**
+     * Get key
+     * @return key
+     */
     public int getKey()
     {
         return key;
     }
 
+    /**
+     * Get capacities
+     * @return capacity list
+     */
     public List<Capacity> getCapacity()
     {
         return Collections.unmodifiableList(capacity);
     }
 
+    /**
+     * Get name
+     * @return shelter name
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * Get restrictions
+     * @return shelter restrictions
+     */
     public CharSequence getRestrict()
     {
         return restrict;
     }
 
+    /**
+     * Get lat
+     * @return shelter lat
+     */
     public double getLatitude()
     {
         return latitude;
     }
 
+    /**
+     * Get long
+     * @return shelter long
+     */
     public double getLongitude()
     {
         return longitude;
     }
 
+    /**
+     * Get address
+     * @return shelter address
+     */
     public CharSequence getAddress()
     {
         return address;
     }
 
+    /**
+     * Get additional notes
+     * @return notes
+     */
     public String getNotes()
     {
         return notes;
     }
 
+    /**
+     * Get phone
+     * @return shelter phone #
+     */
     public String getPhone()
     {
         return phone;

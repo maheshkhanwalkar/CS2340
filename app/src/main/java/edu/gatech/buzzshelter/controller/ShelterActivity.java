@@ -20,6 +20,9 @@ import edu.gatech.buzzshelter.R;
 import edu.gatech.buzzshelter.model.data.Shelter;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
 
+/**
+ * Individual shelter information activity
+ */
 public class ShelterActivity extends AppCompatActivity {
 
     public static final String ARG_SHELTER_ID = "shelter_id";

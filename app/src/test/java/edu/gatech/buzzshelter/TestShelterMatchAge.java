@@ -1,8 +1,8 @@
 package edu.gatech.buzzshelter;
 
-/**
- * Created by Kancheng Wang on 2018/4/3.
- * Test the method Shelter.matchAge(String age)
+/*
+  Created by Kancheng Wang on 2018/4/3.
+  Test the method Shelter.matchAge(String age)
  */
 
 import org.junit.Before;
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 
 public class TestShelterMatchAge {
-    private final static List<Shelter.Capacity> MOCK_CAPACITY = new ArrayList<Shelter.Capacity>();
+    private final static List<Shelter.Capacity> MOCK_CAPACITY = new ArrayList<>();
     private static Shelter mock_shelter = new Shelter();
     private final static String restrict = "Children/Woman";
 

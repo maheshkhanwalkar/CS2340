@@ -7,11 +7,16 @@ import edu.gatech.buzzshelter.model.data.Reservation;
 import edu.gatech.buzzshelter.model.db.Database;
 import edu.gatech.buzzshelter.model.db.types.FirebaseDB;
 
+/**
+ * Reservation manager
+ */
 public class ReservationMgr
 {
     private Database<Reservation> reservations;
 
-    /* Load reservation information */
+    /**
+     * Load reservation data from Firebase
+     */
     public void setup()
     {
         /* Don't do anything */
@@ -22,6 +27,10 @@ public class ReservationMgr
                 Reservation.class);
     }
 
+    /**
+     * Get current user's UID
+     * @return the UID
+     */
     private String getUid()
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -33,6 +42,10 @@ public class ReservationMgr
     }
 
 
+    /**
+     * Get the current reservation
+     * @return the reservation
+     */
     public Reservation get()
     {
         String uid = getUid();
@@ -43,12 +56,22 @@ public class ReservationMgr
         return reservations.get(uid);
     }
 
+    /**
+     * Cancel the current reservation
+     */
     public void cancel()
     {
         String uid = getUid();
         reservations.remove(uid);
     }
 
+    /**
+     * Make a reservation
+     * @param shelterName - shelter name
+     * @param type - bed type
+     * @param amt - amount
+     * @return true, if successful
+     */
     public boolean put(String shelterName, String type, int amt)
     {
         String uid = getUid();
@@ -57,6 +80,10 @@ public class ReservationMgr
         return reservations.put(uid, res);
     }
 
+    /**
+     * Return if the user can reserve
+     * @return true, if possible
+     */
     public boolean canReserve()
     {
         return get() == null;

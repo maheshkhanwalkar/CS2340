@@ -6,9 +6,17 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Helper utilities
+ */
 public final class Toolkit
 {
-    /* Perform a union of all the sets */
+    /**
+     * Performs a union of the provided sets
+     * @param sets - sets to union
+     * @param <T> - type of data
+     * @return the union
+     */
     @SafeVarargs
     public static <T> Set<T> union(Set<T>... sets)
     {
@@ -16,7 +24,12 @@ public final class Toolkit
                 .collect(Collectors.toSet());
     }
 
-    /* Perform an intersection of all the sets */
+    /**
+     * Performs an intersection of the provided sets
+     * @param sets - sets to intersect
+     * @param <T> - type of data
+     * @return the intersection
+     */
     @SafeVarargs
     public static <T> Set<T> intersect(Set<T>... sets)
     {

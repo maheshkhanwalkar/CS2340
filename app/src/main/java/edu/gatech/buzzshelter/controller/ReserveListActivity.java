@@ -12,6 +12,9 @@ import edu.gatech.buzzshelter.R;
 import edu.gatech.buzzshelter.model.data.Reservation;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
 
+/**
+ * Reservation list activity
+ */
 public class ReserveListActivity extends AppCompatActivity
 {
     @Override

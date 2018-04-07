@@ -11,6 +11,9 @@ import edu.gatech.buzzshelter.model.db.util.Toolkit;
 import edu.gatech.buzzshelter.model.facade.DataFacade;
 import edu.gatech.buzzshelter.model.data.Shelter;
 
+/**
+ * Data manager
+ */
 public class DataMgr
 {
     private final DataFacade manager;
@@ -19,6 +22,9 @@ public class DataMgr
     private String genderFilter;
     private String ageFilter;
 
+    /**
+     * Initialize data manager
+     */
     public DataMgr()
     {
         manager = DataFacade.getInstance();
@@ -27,6 +33,10 @@ public class DataMgr
         ageFilter = "Any";
     }
 
+    /**
+     * Get all the data elements
+     * @return list of data
+     */
     public List<DataElement> getData()
     {
         List<DataElement> data = new ArrayList<>();
@@ -85,6 +95,12 @@ public class DataMgr
         }
     }
 
+    /**
+     * Set the filter
+     * @param name - name filter
+     * @param gender - gender filter
+     * @param age - age filter
+     */
     public void setFilter(String name, String gender, String age)
     {
         setNameFilter(name);
@@ -92,16 +108,28 @@ public class DataMgr
         setAgeFilter(age);
     }
 
+    /**
+     * Set name filter
+     * @param name - new name
+     */
     public void setNameFilter(String name)
     {
         nameFilter = name;
     }
 
+    /**
+     * Set gender filter
+     * @param gender - new gender
+     */
     public void setGenderFilter(String gender)
     {
         genderFilter = gender;
     }
 
+    /**
+     * Set age filter
+     * @param age - new age
+     */
     public void setAgeFilter(String age)
     {
         ageFilter = age;

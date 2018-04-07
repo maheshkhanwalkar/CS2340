@@ -16,6 +16,10 @@ import java.util.concurrent.locks.ReentrantLock;
 import edu.gatech.buzzshelter.model.db.Database;
 import edu.gatech.buzzshelter.model.db.KVPair;
 
+/**
+ * Firebase connector
+ * @param <T> - data type to store
+ */
 public class FirebaseDB<T> extends Database<T>
 {
     private final DatabaseReference ref;
@@ -24,7 +28,11 @@ public class FirebaseDB<T> extends Database<T>
     /* Lock for database operations */
     private final Lock lock = new ReentrantLock();
 
-    /* Should be T.class (hack) */
+    /**
+     * Initialize Firebase connector
+     * @param root - root reference
+     * @param type - class type of data (*must be* T.class)
+     */
     public FirebaseDB(String root, Class<T> type)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();

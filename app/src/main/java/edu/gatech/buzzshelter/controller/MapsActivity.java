@@ -16,6 +16,9 @@ import edu.gatech.buzzshelter.R;
 import edu.gatech.buzzshelter.model.data.DataElement;
 import edu.gatech.buzzshelter.model.facade.DataServiceFacade;
 
+/**
+ * Google Maps activity
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 {
     private final DataServiceFacade dataService = DataServiceFacade.getInstance();
