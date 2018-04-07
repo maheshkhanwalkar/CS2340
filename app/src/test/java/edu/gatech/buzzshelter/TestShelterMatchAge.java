@@ -17,9 +17,8 @@ import static org.junit.Assert.*;
 
 
 public class TestShelterMatchAge {
-    private final static List<Shelter.Capacity> MOCK_CAPACITY = new ArrayList<>();
-    private static Shelter mock_shelter = new Shelter();
-    private final static String restrict = "Children/Woman";
+    private final List<Shelter.Capacity> MOCK_CAPACITY = new ArrayList<>();
+    private Shelter mock_shelter = new Shelter();
 
     @Before
     public void setup() {
