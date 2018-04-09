@@ -189,6 +189,10 @@ public class Shelter implements Serializable
      */
     public boolean matchGender(String gender)
     {
+        if(restrict == null) {
+            // null pointer exception
+            restrict = "";
+        }
         String[] all = restrict.split("/");
 
         for(String item : all)
