@@ -15,7 +15,7 @@ public final class DataFacade
 {
     private static final DataFacade ourInstance = new DataFacade();
 
-    private final ShelterMgr sMgr = new ShelterMgr();
+    public final ShelterMgr sMgr = new ShelterMgr();
     private final ReservationMgr rMgr = new ReservationMgr();
 
     /**

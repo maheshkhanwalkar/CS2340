@@ -37,10 +37,9 @@ public class DataMgr
      * Get all the data elements
      * @return list of data
      */
-    public List<DataElement> getData()
+    private List<DataElement> filterData(List<Shelter> shelterList)
     {
         List<DataElement> data = new ArrayList<>();
-        List<Shelter> shelterList = manager.getShelters();
         Set<Shelter> shelterSet = new HashSet<>(shelterList);
 
         Set<Shelter> nameSet = nameMatch(shelterSet);
@@ -57,6 +56,10 @@ public class DataMgr
             data.add(element);
         }
         return data;
+    }
+
+    public List<DataElement> getData() {
+        return filterData(manager.getShelters());
     }
 
     private Set<Shelter> nameMatch(Set<Shelter> shelters)
